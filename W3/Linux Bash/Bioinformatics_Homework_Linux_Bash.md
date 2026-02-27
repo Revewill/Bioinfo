@@ -1,5 +1,3 @@
----
-
 ### Bash script:
 
 ```bash
