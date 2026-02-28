@@ -1,2 +1,0 @@
-Website Link for README.md in GitHub repository:
-https://github.com/Revewill/Bioinfo/blob/main/README.md
