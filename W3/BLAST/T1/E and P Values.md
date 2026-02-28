@@ -1,7 +1,7 @@
 # I. Practical Meaning of `E-Value`
 > `E-value` represents the **number of matches** you would expect to see **by chance** that have a score equal to or better than the current match. It is calculated by combining the *alignment score* with *the size of the database*.
 
-### 1. What the `E-Value` Number Means
+### 1. Implication of `E-Value`
 * **Smaller `E-value`**
     > Closer to `0`.
     * This means it's highly **unlikely** that the match occurred by **random** chance. 
@@ -13,7 +13,7 @@
         * In practice, such matches often need **further verification**.
 
 ### 2. How `E-Value` Affects Results
-> Control the number and reliability of your results by adjusting the `E-value` in the `BLAST` parameters.
+> Control the number and reliability of your results by adjusting `E-value` in `BLAST` parameters.
 * **Setting a low `E-value` threshold**
     >*e.g.*, `0.001`
     * This will **reduce the number of matches** in your output, but the remaining sequences will be **highly reliable**.
@@ -34,7 +34,7 @@
 * **`E-value` accounts for the overall size of the database**
     * Essentially, it's **`P-value`** multiplied by **database size** (or search space).
 
-### 2. In Practical Context
+### 2. Values In Practical Context
 > In actual `BLAST` output, one should primarily rely on `E-value`.
 
 * A database search involves millions of comparisons. `P-value` alone without considering the **number of searches** could lead to **false positives**.
