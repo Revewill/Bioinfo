@@ -4,6 +4,7 @@
 
 ## 1. Format for *final results*
 * *Abbr.* meanings:
+ 
 | Col. | *Abbr.*         | Meanings           |
 | :---: | :-----------: |:-------------:|
 | **1** | **qseqid**     | **Query sequence ID** |
