@@ -4,7 +4,11 @@
 
 ## 1. Format for *final results*
 * *Abbr.* meanings:
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> b41500b9a2a08c411d19e3aeae881a49659a168f
 | Col. | *Abbr.*         | Meanings           |
 | :---: | :-----------: |:-------------:|
 | **1** | **qseqid**     | **Query sequence ID** |
