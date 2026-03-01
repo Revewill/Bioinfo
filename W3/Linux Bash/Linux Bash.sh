@@ -9,9 +9,12 @@ while true; do
     if [ -d "$fulldir" ]; then 
         ls -F "$fulldir" 
         echo -e "These are all files/directories within your directory.\nTask done." 
-        touch /home/test/linux/Bash/filenames.txt /home/test/linux/Bash/dirname.txt 
+        > /home/test/linux/Bash/filenames.txt
+        > /home/test/linux/Bash/dirname.txt
 
-        ls "$fulldir" | while read item; do 
+        ls "$fulldir" > /home/test/linux/Bash/.temp.txt
+
+        while read item; do 
             if [ -f "$fulldir/$item" ]; then 
                 echo "$item" >> /home/test/linux/Bash/filenames.txt 
             elif [ -d "$fulldir/$item" ]; then 
@@ -19,7 +22,7 @@ while true; do
             else 
                 continue 
             fi 
-        done 
+        done < /home/test/linux/Bash/.temp.txt
 
         read -t 60 -p "Do you want to cat the .txt files? (Press anything other than y to exit) " answer 
 
@@ -28,11 +31,15 @@ while true; do
             cat /home/test/linux/Bash/filenames.txt 
             echo -e "\nDirnames:\n" 
             cat /home/test/linux/Bash/dirname.txt 
-        fi 
+        fi
+
+        rm /home/test/linux/Bash/.temp.txt
 
         break 
+
     else 
-        echo -e "This is a wrong directory! Type in again.\nCurrent directory ls:" 
-        ls /home/test/linux/Bash 
+        echo -e "Invalid directory. Type in again.\nCurrent directory ls:" 
+        ls /home/test/linux/Bash
+        continue
     fi 
 done
