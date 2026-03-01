@@ -106,23 +106,27 @@ while true; do
                     		done
 
                     		# Integrate information into one file
-				cp "${fulldirpath}"/BLAST_results "${fulldirpath}"/BLAST_results_old
-                            	echo -e "qseqid\tsseqid\tpident\tlength\tmismatch\tgapopen\tqstart\tqend\tsstart\tsend\tevalue\tbitscore\n" > "${fulldirpath}"/BLAST_results_old
-				echo "" >> "${fulldirpath}"/BLAST_results_old
-				cat "${fulldirpath}"/BLAST_results >> "${fulldirpath}"/BLAST_results_old
-				column -t "${fulldirpath}"/BLAST_results_old > "${fulldirpath}"/BLAST_results
+							cp "${fulldirpath}"/BLAST_results "${fulldirpath}"/BLAST_results_old
+                            echo -e "qseqid\tsseqid\tpident\tlength\tmismatch\tgapopen\tqstart\tqend\tsstart\tsend\tevalue\tbitscore\n" > "${fulldirpath}"/BLAST_results_old
+							echo "" >> "${fulldirpath}"/BLAST_results_old
+
+							cat "${fulldirpath}"/BLAST_results >> "${fulldirpath}"/BLAST_results_old
+							column -t "${fulldirpath}"/BLAST_results_old > "${fulldirpath}"/BLAST_results
 				
-				prev=""
-				while read line; do
-					curr=$(echo "$line" | awk '{print $1}')
-					if [[ -n "preve" && "${curr}" != "${prev}" ]]; then
-						echo ""
-					fi
-					echo "$line"
-					prev="${curr}"
-				done < "${fulldirpath}"/BLAST_results > "${fulldirpath}"/BLAST_results.txt
+							prev=""
+							while read line; do
+								curr=$(echo "$line" | awk '{print $1}')
+
+								if [[ -n "preve" && "${curr}" != "${prev}" ]]; then
+									echo ""
+								fi
+
+								echo "$line"
+								prev="${curr}"
+
+							done < "${fulldirpath}"/BLAST_results > "${fulldirpath}"/BLAST_results.txt
 				
-				echo -e "\nShuffled sequences are shown below:\n" >> "${fulldirpath}"/BLAST_results.txt
+							echo -e "\nShuffled sequences are shown below:\n" >> "${fulldirpath}"/BLAST_results.txt
                     		cat "${shufseqfile}" >> "${fulldirpath}"/BLAST_results.txt
 
                     		# Acquire permission to remove shufseqfile
