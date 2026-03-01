@@ -62,7 +62,7 @@
         * In real research, conclusions should never be based on `E-values` alone.
             > **Other information**, such as **alignment length**, **functional annotation**, and **species of origin**, must be considered as well.
 
-### 4. Appendix
+## 4. Appendix
 * **[Final results (BLAST_T2_Results.txt)](https://revewill.github.io/Bioinfo.Revewill.github.io/W3/BLAST/T2/BLAST_T2_Results.txt)**
 
 | **`qseqid`** | **`sseqid`** | **`pident`** | `length` | `mismatch` | `gapopen` | `qstart` | `qend` | `sstart` | `send` | **`evalue`** | **`bitscore`** |
