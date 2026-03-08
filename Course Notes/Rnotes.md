@@ -108,12 +108,13 @@
 
             # Deleting the first element in a
             a[-1]   # Returns: 0 1 2 3 4 5
+            a <- a[-1] # Commiting deletion to a itself
+            a   # Returns: 0 1 2 3 4 5
 
-            # Modifying the second and seventh elements in a
-            a[c(2,7)] <- c(5,0)
-            a   # Returns: -2 5 1 2 3 4 0
+            # Deleting the first and sixth elements in a
+            a[-c(1,6)]  # Returns: 1 2 3 4
+            a <- a[-c(1,6)]
 
-            # Modifying the third to sixth elements in a
-            a[3:6] <- c(4:7)
-            a   # Returns: -2 5 4 5 6 7 0
+            # Deleting the second to fourth elements in a
+            a[-(2:4)]   # Returns: 1
             ```
