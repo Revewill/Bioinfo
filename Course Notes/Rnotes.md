@@ -20,6 +20,7 @@
         - [2.2.1.4 🚩 *Chr* Vectors](#2214--chr-vectors)
       - [2.2.2 **Matrices**](#222-matrices)
         - [2.2.2.1 Basics in Matrices](#2221-basics-in-matrices)
+          - [2.2.2.1.2 **Creating** matrices](#22212-creating-matrices)
 
 ---
 ## 1. [Package installation](#11--install-packages-via) and [basic commands](#12-basic-commands)
@@ -277,7 +278,59 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
 ##### 2.2.2.1 Basics in Matrices
 > Go [back](#222-matrices), go [down], or go to [top](#notes-on-r-learning).
 
+###### 2.2.2.1.2 **Creating** matrices
+* Create matrix with `matrix` function
 
+    ```R
+    matrix(data = data, nrow = m, ncol = n, byrow = TRUE, dimnames = list)
+    ```
+    * `data` is the source data, must be **$m*n$** sized
+    * `nrow` is the number of rows
+    * `ncol` is the number of columns
+    * `byrow` dictates whether `data` is filled into the matrix by row or column order
+      * `byrow = TRUE`: data is filled by row
+      * `byrow = FALSE` or no `byrow` argument: data is filled by column
+    * `dimnames` is the name of each row or column (if you are working a form)
+      * Normally inputed in a list form
+      * `dimnames = NULL` or no `dimnames` argument means no dimnames
+    > *e.g.*,
+    
+    ```R
+    matrix(data = 1:10, nrow = 2, ncol = 5, byrow = TRUE, dimnames = NULL)
+    # Returns
+    1 2 3 4 5
+    6 7 8 9 10
 
+    matrix(data = 1:10, nrow = 2, ncol = 5)
+    # Returns
+    1 3 5 7 9
+    2 4 6 8 10
+    ```
+* Creating matrix with vectors
+    ```R
+    # Assign data
+    cells <- c(1:4)
 
-        
+    # Assign dimnames
+    rnames <- c("R1", "R2")
+    nnames <- c("C1", "C2")
+
+    # Create matrix
+    A <- matrix(cells, nrow = 2, ncol = 2, byrow = TRUE, dimnames = list(rnames, nnames))
+    A
+    # Returns
+        C1 C2
+    R1  1  2
+    R2  3  4
+
+    # Define dimnames after creating matrix
+    A <- matrix(data = 1:4, nrow = 2, ncol = 2)
+    rownames(A) = c("Row1", "Row2")
+    colnames(A) = c("Col1", "Col2")
+    A
+    # Returns
+          Col1 Col2
+    Row1  1    3
+    Row2  2    4
+    ```
+
