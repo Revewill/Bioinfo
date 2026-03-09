@@ -23,7 +23,7 @@
           - [2.2.2.1.2 **Creating** matrices](#22212-creating-matrices)
 
 ---
-## 1. [Package installation](#11--install-packages-via) and [basic commands](#12-basic-commands)
+## 1. [Package installation](#11--install-packages) and [basic commands](#12-basic-commands)
 > Enter `RStudio` and create a new `R` file. Edit it and click `run` to check results in `console`.
 
 ### 1.1  **Install packages**
