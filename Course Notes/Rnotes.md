@@ -61,7 +61,7 @@ BiocManager::install("package", ask = F, update = F`)
     ```R
     rm("sth")
     ```
-
+---
 ## 2. Data Type and Data Structure in `R`
 ### 2.1 **Data Type**
 > Go [back](#2-data-type-and-data-structure-in-r), go [down](#22-data-structure), or go to [top](#notes-on-r-learning).
@@ -84,7 +84,7 @@ BiocManager::install("package", ask = F, update = F`)
 ### 2.2 **Data Structure**
 > Go [back](#2-data-type-and-data-structure-in-r), go [down](#221-vectors), or go to [top](#notes-on-r-learning).
 
-> Are storage forms of data, including [Vectors](#221-vectors), [Matrices](#222-matrices), 数组, 数据框, 列表.
+> Are storage forms of data, including [Vectors](#221-vectors), [Matrices](#222-matrices), 数组, 数据框, List.
 #### 2.2.1 **Vectors**
 * **Vectors** are **strings** of data **of a same type** placed in order
 ##### 2.2.1.1 Basics in Vector
