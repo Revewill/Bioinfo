@@ -25,6 +25,7 @@
           - [2.2.2.1.3 **Calculation** of matrices](#22213-calculation-of-matrices)
         - [2.2.2.2 Advance in Matrices](#2222-advance-in-matrices)
           - [2.2.2.2.1 🚩 **Operation** on rows and cols](#22221--operation-on-rows-and-cols)
+          - [2.2.2.2.2 **Advance calculation** of matrices](#22222-advance-calculation-of-matrices)
 
 ---
 ## 1. [Package installation](#11--install-packages) and [basic commands](#12-basic-commands)
@@ -344,17 +345,22 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
     Row1  1    3
     Row2  2    4
     ```
-* ※ Creating things with `rnorm`
+* ※ Creating things with random numbers
 
-```R
-matrix(rnorm(15),5,3)
-# Returns a 5*3 matrix with 15 random numbers
+  ```R
+  matrix(rnorm(15),5,3)
+  # Returns a 5*3 matrix with 15 random numbers
 
-# rnorm
-rnorm(n, mean = 0, sd = 1)
-# Randomly generate n numbers that obey normal distribution
-# Default mean = 0, standard deviation = 1
-```
+  # rnorm
+  rnorm(n, mean = 0, sd = 1)
+  # Randomly generate n numbers that obey normal distribution
+  # Default mean = 0, standard deviation = 1
+
+  # sample
+  sample(1:10, 4, replace = T)
+  # Randomly pick 4 repeatable numbers from 1 to 10
+  # Or replace = F
+  ```
 ###### 2.2.2.1.2 **Accessing** and **modifying** elements within a matrix
 
 ```R
@@ -420,22 +426,59 @@ X %*% Y # Multiplication
 34 46
 ```
 ##### 2.2.2.2 Advance in Matrices
-> Go [back](#222-matrices), go [down], or go to [top](#notes-on-r-learning).
+> Go [back](#222-matrices), go [down](#), or go to [top](#notes-on-r-learning).
 
 ###### 2.2.2.2.1 🚩 **Operation** on rows and cols
 
 ```R
-A <- matrix(1:10, nrow = 2)
+X <- matrix(1:4, nrow = 2)
+Y <- matrix(5:8, nrow = 2)
 
 # Sums and means
-rowSums(A)  # Returns 25 30 (a 2D vector)
-colSums(A)  # Returns 3 7 11 15 19 (a 5D vector)
-mean(A) # Returns 5.5
-rowMeans(A)
-colMeans(A)
+rowSums(X)  # Returns 25 30 (a 2D vector)
+colSums(X)  # Returns 3 7 11 15 19 (a 5D vector)
+mean(X) # Returns 5.5
+rowMeans(X)
+colMeans(X)
 
 # 🚩 Binding of rows and cols
-
-
+cbind(X,Y)  # Must with same nrow
+# Returns (X,Y)
+1 3 5 7
+2 4 6 8
+rbind(X,Y)  # Must with same ncol
+# Returns (X,Y)^T
+1 3
+2 4
+5 7
+6 8
 ```
+###### 2.2.2.2.2 **Advance calculation** of matrices
+
+```R
+# Inverse matrix 求逆
+solve(X)
+# Verify
+round(solve(X) %*% X) # Returns I2
+
+# SVD and pseudo-inverse 奇异值分解和求广义逆/伪逆
+ginv(X) # Returns pseudo-inverse matrix
+S <- svd(X)
+# Stores vectors u, d and v (X = uD(v^T), where D = diag(d)) as a list
+S$u %*% diag(S$d) %*% t(S$v) # Returns X (S$ extracts variants within S)
+
+# Eigenvalue/eigenvector 特征值/特征向量
+eigen(X)  # Returns eigenvalue and corresponding eigenvector
+
+# diag
+diag(X) # Returns the diagonal elements of X (a vector)
+diag(n) # Returns In
+diag(c(1,2))
+# Returns
+1 0
+0 2
+diag(2,4) # Returns 2*I4
+diag(2,4,5) # Returns a 4*5 matrix with its first 4*4 submatrix being 2*I4
+```
+> `round` 取整. *e.g.*, `round(0.98)` returns `1`.
 ---
