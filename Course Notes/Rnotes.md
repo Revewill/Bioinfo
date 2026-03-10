@@ -101,7 +101,71 @@ BiocManager::install("package", ask = F, update = F`)
 
     is.numeric(a)   # Returns TRUE
     is.integer(a)   # Returns FALSE
-    is.integer(a)   # Returns TRUE
+    is.integer(e)   # Returns TRUE
+    ```
+* One special type: **factor**
+  * **Factors** are *chr* vectors
+    * The only difference: a vector is a set of data, a factor is data itself
+      * `c("A","T","G","C")` is a vector in which elements are not interconnected
+      * `factor("A","T","G","C")` is a factor in which these letters are interconnected as a whole
+    * `levels` sorts out all unique letters in a factor and assign them numeric values
+      * *e.g.*, `"A","T","G","C"` -> `1,2,3,4`
+      * Factor is stored in the corresponding numeric format
+    * `labels` are labels you attach to levels
+    * `ordered` is a *logi* value that determines whether levels are sorted in order
+  * Creating factors
+    * Creating factors with `factor`
+      ```R
+      factor(chr_vector, levels, labels, ordered = TRUE)
+      
+      v <- c("A","G","T","C","A")
+      factor(v)
+      # Returns
+      A G T C A
+      Levels: A C G T
+      # No levels argument: default order (num -> chr)
+
+      # levels
+      factor(v, levels = c("A","T","G","C")) 
+      # Returns
+      A G T C A
+      Levels: A T G C
+
+      # labels
+      factor(
+        v, levels = c("A","T","G","C"),
+        labels = c("Adenine", "Thymine", "Guanine", "Cytosine")
+      )
+      # Returns
+      Adenine Guanine Thymine Cytosine Adenine
+      Levels: Adenine Thymine Guanine Cytosine
+
+      # Transform between data type/structure (as function)
+      as.factor(v)
+      ```
+    * Creating factors with `gl`
+      ```R
+      gl(num_of_levels, num_of_repeats, labels)
+
+      gl(4, 2, labels = c("A","T","G","C"))
+      # Returns
+      A A T T G G C C
+      Levels: A T G C
+      ```
+  * Practical use of factors
+    ```R
+    # Used in sorting
+    size <- c("XS","S","L","XL","M")
+
+    # Normal sorting: alphabetic order
+    sort(size)  # Returns "L" "M" "S" "XL" "XS"
+    
+    # Factor sorting: appointed order
+    F_size <- factor(size, labels = c("XS","S","M","L","XL"))
+    sort(F_size)
+    # Returns
+    XS S M L XL
+    Levels: XS S M L XL
     ```
 ### 2.2 **Data Structure**
 > Go [back](#2-data-type-and-data-structure-in-r), go [down](#221-vectors), or go to [top](#notes-on-r-learning).
@@ -612,6 +676,7 @@ rbind(DF, DF2)
 3   3   c  TRUE   NA
 4   4   d FALSE   NA
 ```
+
 
 ---
 
