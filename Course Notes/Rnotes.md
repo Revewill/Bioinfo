@@ -29,6 +29,12 @@
       - [2.2.3 **Arrays**](#223-arrays)
         - [2.2.3.1 Basics in Array](#2231-basics-in-array)
           - [2.2.3.1.1 **Creating** arrays](#22311-creating-arrays)
+          - [2.2.3.1.2 **Accessing** elements within an array](#22312-accessing-elements-within-an-array)
+      - [2.2.4 **Data frames**](#224-data-frames)
+        - [2.2.4.1 Basics in Data frame](#2241-basics-in-data-frame)
+          - [2.2.4.1.1 **Creating** data frames](#22411-creating-data-frames)
+          - [2.2.4.1.2 **Accessing** and **modifying** elements within a data frame](#22412-accessing-and-modifying-elements-within-a-data-frame)
+          - [2.2.4.1.2 **Operation** on rows and cols](#22412-operation-on-rows-and-cols)
 
 ---
 ## 1. [Package installation](#11--install-packages) and [basic commands](#12-basic-commands)
@@ -100,7 +106,7 @@ BiocManager::install("package", ask = F, update = F`)
 ### 2.2 **Data Structure**
 > Go [back](#2-data-type-and-data-structure-in-r), go [down](#221-vectors), or go to [top](#notes-on-r-learning).
 
-> Are storage forms of data, including [Vectors](#221-vectors), [Matrices](#222-matrices), [Arrays](#223-arrays), 数据框, List.
+> Are storage forms of data, including [Vectors](#221-vectors), [Matrices](#222-matrices), [Arrays](#223-arrays), [Data frame](#224-data-frames), [List]().
 #### 2.2.1 **Vectors**
 * **Vectors** are **strings** of data **of a same type** placed in order
 ##### 2.2.1.1 Basics in Vector
@@ -312,12 +318,12 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
     ```R
     matrix(data = 1:10, nrow = 2, ncol = 5, byrow = TRUE, dimnames = NULL)
     # Returns
-    1 2 3 4 5
+    1 2 3 4  5
     6 7 8 9 10
 
     matrix(data = 1:10, nrow = 2, ncol = 5)
     # Returns
-    1 3 5 7 9
+    1 3 5 7  9
     2 4 6 8 10
     ```
 * Creating matrix with vectors
@@ -335,8 +341,8 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
     A
     # Returns
         C1 C2
-    R1  1  2
-    R2  3  4
+    R1   1  2
+    R2   3  4
 
     # Define dimnames after creating matrix
     A <- matrix(data = 1:4, nrow = 2, ncol = 2)
@@ -345,8 +351,8 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
     A
     # Returns
           Col1 Col2
-    Row1  1    3
-    Row2  2    4
+    Row1     1    3
+    Row2     2    4
     ```
 * ※ Creating things with random numbers
 
@@ -370,7 +376,7 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
 A <- matrix(1:10, nrow = 2)
 A
 # Returns
-1 3 5 7 9
+1 3 5 7  9
 2 4 6 8 10
 
 # Access the second row
@@ -400,10 +406,10 @@ ncol(A) # Returns 5
 # Transposition
 t(A)
 # Returns
-1 2
-3 4
-5 6
-7 8
+1  2
+3  4
+5  6
+7  8
 9 10
 
 # Linear calculations
@@ -418,7 +424,7 @@ X * Y # Must be same dimension as well
 1*5 3*7
 2*6 4*8
 # Namely
-5  21
+ 5 21
 12 32
 X / Y # Similar to multiplication above
 
@@ -488,7 +494,7 @@ diag(2,4,5) # Returns a 4*5 matrix with its first 4*4 submatrix being 2*I4
 * **Arrays** are **multi-dim strings** of data **of a same type**
   * A matrix could be interpreted as a `2D` array, whereas a vector is `1D`
 ##### 2.2.3.1 Basics in Array
-> Go [back](#223-arrays), go [down](), or go to [top](#notes-on-r-learning).
+> Go [back](#223-arrays), go [down](#224-data-frames), or go to [top](#notes-on-r-learning).
 ###### 2.2.3.1.1 **Creating** arrays
 
 ```R
@@ -502,6 +508,111 @@ dimname_C <- c("C1","C2","C3")
 Ω <- array(1:27, c(3,3,3), dimnames = list(dimname_A, dimname_B, dimname_C))
 # if data doesn't fill the array size, then it will cycle
 ```
+###### 2.2.3.1.2 **Accessing** elements within an array
+
+```R
+print(Ω[3,1,2])  # Or Ω[3,1,2]
+print(Ω[3,1,])  # Returns vector
+print(Ω[3,,]) # Returns matrix
+
+# Creating matrices from arrays
+M(Ω) <- Ω[2,,]
+```
+#### 2.2.4 **Data frames**
+* **Data frames** are data **forms** aligned in columns
+  * A column has a **unique colname**
+  * Columns are equal in **length**
+  * Data within the same column must be **of the same type**
+  * The type of data from **different** columns **can differ**
+##### 2.2.4.1 Basics in Data frame
+> Go [back](#224-data-frames), go [down](), or go to [top](#notes-on-r-learning).
+###### 2.2.4.1.1 **Creating** data frames
+
+* Basic function
+
+  ```R
+  # Creating data frames
+  data.frame(tag1 = vector1, tag2 = vector2, row.names = rname)
+  ```
+  * `tag` is the colname
+  * `row.names` defines rownames, default is `NULL`
+* *e.g.*,
+
+  ```R
+  u <- c(1,2)
+  v <- c(TRUE, FALSE)
+  data.frame(u,v)
+  # Returns
+    u     v
+  1 1  TRUE
+  2 2 FALSE
+
+  DF <- data.frame(
+    'num' = c(1,2,3),
+    'chr' = c("a","b","c"),
+    'logi' = c(TRUE, FALSE, TRUE)
+  )
+  DF
+  # Returns
+    num chr  logi
+  1   1   a  TRUE
+  2   2   b FALSE
+  3   3   c  TRUE
+  ```
+###### 2.2.4.1.2 **Accessing** and **modifying** elements within a data frame
+
+```R
+# Acquiring overview and statistics on data frame
+str(DF) # Returns data structure
+summary(DF) # Returns statistic values of each column
+
+# Accessing cols and rows
+DF[,2]  # Returns the second col
+DF$chr  # Returns the col with tag 'chr'
+DF[1:2,]  # Returns the first and second rows
+DF[1:2,1:2] # Returns
+  num chr
+1   1   a
+2   2   b
+
+# Adding cols
+DF$'note' <- rep(NA,3)
+DF
+# Returns
+  num chr  logi note
+1   1   a  TRUE   NA
+2   2   b FALSE   NA
+3   3   c  TRUE   NA
+```
+###### 2.2.4.1.2 **Operation** on rows and cols
+
+```R
+# rbind and cbind
+DF
+# Returns
+  num chr  logi note
+1   1   a  TRUE   NA
+2   2   b FALSE   NA
+3   3   c  TRUE   NA
+
+DF1 <- data.frame('value' = c(3.14, 1.59, 2.65))
+cbind(DF, DF1)
+# Returns
+  num chr  logi note value
+1   1   a  TRUE   NA  3.14
+2   2   b FALSE   NA  1.59
+3   3   c  TRUE   NA  2.65
+
+DF2 <- data.frame('num' = 4, 'chr' = "d", 'logi' = FALSE, 'note' = NA)
+rbind(DF, DF2)
+# Returns
+  num chr  logi note
+1   1   a  TRUE   NA
+2   2   b FALSE   NA
+3   3   c  TRUE   NA
+4   4   d FALSE   NA
+```
+
 ---
 
 
