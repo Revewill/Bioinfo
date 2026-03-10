@@ -35,6 +35,12 @@
           - [2.2.4.1.1 **Creating** data frames](#22411-creating-data-frames)
           - [2.2.4.1.2 **Accessing** and **modifying** elements within a data frame](#22412-accessing-and-modifying-elements-within-a-data-frame)
           - [2.2.4.1.2 **Operation** on rows and cols](#22412-operation-on-rows-and-cols)
+      - [2.2.5 **Lists**](#225-lists)
+        - [2.2.5.1 Basics in List](#2251-basics-in-list)
+          - [2.2.5.1.1 **Creating** lists](#22511-creating-lists)
+          - [2.2.5.1.2 **Accessing** and **modifying** elements within a list](#22512-accessing-and-modifying-elements-within-a-list)
+          - [2.2.5.1.3 **Operation** on lists](#22513-operation-on-lists)
+        - [2.2.5.2 Advance in List](#2252-advance-in-list)
 
 ---
 ## 1. [Package installation](#11--install-packages) and [basic commands](#12-basic-commands)
@@ -170,7 +176,7 @@ BiocManager::install("package", ask = F, update = F`)
 ### 2.2 **Data Structure**
 > Go [back](#2-data-type-and-data-structure-in-r), go [down](#221-vectors), or go to [top](#notes-on-r-learning).
 
-> Are storage forms of data, including [Vectors](#221-vectors), [Matrices](#222-matrices), [Arrays](#223-arrays), [Data frame](#224-data-frames), [List]().
+> Are storage forms of data, including [Vectors](#221-vectors), [Matrices](#222-matrices), [Arrays](#223-arrays), [Data frame](#224-data-frames), [List](#225-lists).
 #### 2.2.1 **Vectors**
 * **Vectors** are **strings** of data **of a same type** placed in order
 ##### 2.2.1.1 Basics in Vector
@@ -589,7 +595,7 @@ M(Ω) <- Ω[2,,]
   * Data within the same column must be **of the same type**
   * The type of data from **different** columns **can differ**
 ##### 2.2.4.1 Basics in Data frame
-> Go [back](#224-data-frames), go [down](), or go to [top](#notes-on-r-learning).
+> Go [back](#224-data-frames), go [down](#225-lists), or go to [top](#notes-on-r-learning).
 ###### 2.2.4.1.1 **Creating** data frames
 
 * Basic function
@@ -676,8 +682,175 @@ rbind(DF, DF2)
 3   3   c  TRUE   NA
 4   4   d FALSE   NA
 ```
+#### 2.2.5 **Lists**
+* **Lists** are containers of **different** types/structures of data
+  * May include *data*, *vectors*, *matrices*, *arrays*, *data frames*, and even other *lists*.
+##### 2.2.5.1 Basics in List
+> Go [back](#225-lists), go [down](#2252-advance-in-list), or go to [top](#notes-on-r-learning).
+###### 2.2.5.1.1 **Creating** lists
 
+```R
+# Creating a list
+List <- list(
+  "revewill",
+  "H",
+  c(1,2,3),
+  1.23,
+  matrix(c(TRUE, FALSE, TRUE, TRUE), 2),
+  list(
+    c("a","b","c"),
+    NA
+  )
+)
+List
+# Returns
+[[1]] # [[1]] means the first item in the list
+[1] "revewill"
+
+[[2]]
+[1] "H"
+
+[[3]]
+[1] 1 2 3
+
+[[4]]
+[1] 1.23
+
+[[5]]
+      [,1] [,2]
+[1,]  TRUE TRUE
+[2,] FALSE TRUE
+
+[[6]]
+[[6]][[1]]
+[1] "a" "b" "c"
+
+[[6]][[2]]
+[1] NA
+
+# Creating names for each element
+names(List) <- c(
+  "User",
+  "Username",
+  "Vector",
+  "Number",
+  "Matrix",
+  "List"
+)
+List
+# Returns
+$User
+[1] "revewill"
+
+$Username
+[1] "H"
+
+$Vector
+[1] 1 2 3
+
+$Number
+[1] 1.23
+
+$Matrix
+      [,1] [,2]
+[1,]  TRUE TRUE
+[2,] FALSE TRUE
+
+$List
+$List[[1]]
+[1] "a" "b" "c"
+
+$List[[2]]
+[1] NA
+
+# Or create names when creating the list
+List <- list(
+  'User' = "revewill",
+  'Username' = "H",
+  'Vector' = c(1,2,3),
+  'Number' = 1.23,
+  'Matrix' = matrix(c(TRUE, FALSE, TRUE, TRUE), 2),
+  'list' = list(
+    c("a","b","c"), 
+    NA
+  )
+)
+```
+###### 2.2.5.1.2 **Accessing** and **modifying** elements within a list
+
+```R
+# Accessing the second item
+List[2] # Returns [1] "H"
+List$Username # Returns [1] "H"
+
+# Modifying elements
+List[2] <- "Huang"
+List$Username <- "Huang"
+
+# Deleting elements
+List[-2]
+# Or
+List$Username <- NULL
+```
+###### 2.2.5.1.3 **Operation** on lists
+
+```R
+L1 <- list(1:3)
+L2 <- list(4:6)
+
+# Merge lists
+c(L1,L2)  # A new list with items in both lists
+
+# Transform to vectors
+L1 + L2 # Error!
+V1 <- unlist(L1)
+V2 <- unlist(L2)
+V1 + V2 # Returns 5 7 9
+```
+##### 2.2.5.2 Advance in List
+> Go [back](#225-lists), go [down](), or go to [top](#notes-on-r-learning).
+
+```R
+List <- list(
+  c(1,2,3),
+  1
+)
+
+# Differences on [] and [[]]
+List[1]
+# Returns
+[[1]]
+[1] 1 2 3
+# This itself is a list that only has one element: a vector
+
+List[[1]]
+# Returns
+[1] 1 2 3
+# This itself is the vector that is included in List
+
+# Similar principles apply to data frames
+DF <- data.frame(
+  'num' = c(1,2)
+  'chr' = c("a","b")
+  'logi' = c(TRUE, FALSE)
+)
+
+DF[1]
+# Returns
+  num
+1   1
+2   2
+# This itself is still a data frame
+
+DF[[1]]
+# Returns
+[1] 1 2
+# This is a vector, the source data of DF
+
+DF[,1]
+# Returns
+[1] 1 2
+# Extracting a column is extracting the corresponding vector
+```
 
 ---
-
-
