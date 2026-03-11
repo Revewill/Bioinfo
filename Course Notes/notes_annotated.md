@@ -42,44 +42,48 @@
           - [2.2.5.1.3 **Operation** on lists](#22513-operation-on-lists)
         - [2.2.5.2 Advance in List](#2252-advance-in-list)
   - [3. Data Management](#3-data-management)
-    - [3.1 `csv` and `xlsx` files](#31-csv-and-xlsx-files)
-      - [3.1.1 **Reading** and **saving** `csv` files](#311-reading-and-saving-csv-files)
-      - [3.1.2 **Operation** on `xlsx` files](#312-operation-on-xlsx-files)
-    - [3.2 `txt` files](#32-txt-files)
-  - [4. Advanced Data Management](#4-advanced-data-management)
-    - [4.1 **Loop** Sentences](#41-loop-sentences)
-      - [4.1.1 `for` loop](#411-for-loop)
-      - [4.1.2 `while` loop](#412-while-loop)
+    - [3.1 **Importing** and **exporting** common files](#31-importing-and-exporting-common-files)
+      - [3.1.1 `csv` and `xlsx` files](#311-csv-and-xlsx-files)
+        - [3.1.1.1 **Reading** and **saving** `csv` files](#3111-reading-and-saving-csv-files)
+        - [3.1.1.2 **Operation** on `xlsx` files](#3112-operation-on-xlsx-files)
+      - [3.1.2 `txt` files](#312-txt-files)
 
 ---
-## 1. Package installation and basic commands
+## 1. [Package installation](#11--install-packages) and [basic commands](#12-basic-commands)
 > Enter `RStudio` and create a new `R` file. Edit it and click `run` to check results in `console`.
 
 ### 1.1  **Install packages**
 > Go [back](#1-package-installation-and-basic-commands), go [down](#12-basic-commands), or go to [top](#notes-on-r-learning).
 
+<a name="code1"></a>
 ```R
 install.packages("package")
 # or with BiocManager
-BiocManager::install("package", ask = F, update = F)
+BiocManager::install("package", ask = F, update = F`)
 ```
+> <small>**Functions in this block:** [`install.packages`](#apx-install.packages), [`install`](#apx-install)</small>
 * **`R` Packages** are sets of **functions**
 * `BiocManager` is a platform for bioinformatic package installation
 * For Packages to take effect, use
 
+    <a name="code2"></a>
     ```R
     library("package")
     ```
+    > <small>**Functions in this block:** [`library`](#apx-library)</small>
 ### 1.2 **Basic Commands**
 > Go [back](#1-package-installation-and-basic-commands), go [down](#2-data-type-and-data-structure-in-r), or go to [top](#notes-on-r-learning).
 * Get/Set working dir
 
+    <a name="code3"></a>
     ```R
     getwd()
     setwd("working_dir")
     ```
+    > <small>**Functions in this block:** [`getwd`](#apx-getwd), [`setwd`](#apx-setwd)</small>
 * Set variables
 
+    <a name="code4"></a>
     ```R
     a <- 0
     # or
@@ -88,9 +92,11 @@ BiocManager::install("package", ask = F, update = F)
   > `<-` could be typed with `Alt`+`-`
 * Remove
 
+    <a name="code5"></a>
     ```R
     rm("sth")
     ```
+    > <small>**Functions in this block:** [`rm`](#apx-rm)</small>
 ---
 ## 2. Data Type and Data Structure in `R`
 ### 2.1 **Data Type**
@@ -98,15 +104,18 @@ BiocManager::install("package", ask = F, update = F)
 * Three main types: **numeric** (*num*), **logical** (*logi*) and **character** (*chr*)
   * *e.g.*, these `3` variables represent `3` different data type
 
+    <a name="code6"></a>
     ```R
     a <- 1.4
     b <- TRUE
     d <- "abc"
     e <- as.integer(2.99)
     ```
+    > <small>**Functions in this block:** [`as.integer`](#apx-as.integer)</small>
     > **`c` is a function**, therefore not commonly used as variables.
   * `class` and `is` function tells the data type
 
+    <a name="code7"></a>
     ```R
     class(a)    # Returns numeric
     class(b)    # Returns logical
@@ -118,6 +127,7 @@ BiocManager::install("package", ask = F, update = F)
     is.integer(a)   # Returns FALSE
     is.integer(e)   # Returns TRUE
     ```
+    > <small>**Functions in this block:** [`class`](#apx-class), [`is.numeric`](#apx-is.numeric), [`is.integer`](#apx-is.integer)</small>
 * One special type: **factor**
   * **Factors** are *chr* vectors
     * The only difference: a vector is a set of data, a factor is data itself
@@ -130,6 +140,7 @@ BiocManager::install("package", ask = F, update = F)
     * `ordered` is a *logi* value that determines whether levels are sorted in order
   * Creating factors
     * Creating factors with `factor`
+      <a name="code8"></a>
       ```R
       factor(chr_vector, levels, labels, ordered = TRUE)
       
@@ -158,7 +169,9 @@ BiocManager::install("package", ask = F, update = F)
       # Transform between data type/structure (as function)
       as.factor(v)
       ```
+      > <small>**Functions in this block:** [`factor`](#apx-factor), [`c`](#apx-c), [`order`](#apx-order), [`structure`](#apx-structure), [`as.factor`](#apx-as.factor)</small>
     * Creating factors with `gl`
+      <a name="code9"></a>
       ```R
       gl(num_of_levels, num_of_repeats, labels)
 
@@ -167,7 +180,9 @@ BiocManager::install("package", ask = F, update = F)
       A A T T G G C C
       Levels: A T G C
       ```
+      > <small>**Functions in this block:** [`gl`](#apx-gl), [`c`](#apx-c)</small>
   * Practical use of factors
+    <a name="code10"></a>
     ```R
     # Used in sorting
     size <- c("XS","S","L","XL","M")
@@ -182,6 +197,7 @@ BiocManager::install("package", ask = F, update = F)
     XS S M L XL
     Levels: XS S M L XL
     ```
+    > <small>**Functions in this block:** [`c`](#apx-c), [`sort`](#apx-sort), [`factor`](#apx-factor)</small>
 ### 2.2 **Data Structure**
 > Go [back](#2-data-type-and-data-structure-in-r), go [down](#221-vectors), or go to [top](#notes-on-r-learning).
 
@@ -193,6 +209,7 @@ BiocManager::install("package", ask = F, update = F)
 ###### 2.2.1.1.1 **Creating** vectors
 * *e.g.*, `a` is a *num* vector, `b` is a *chr* vector, `c` is a *logi* vector
 
+    <a name="code11"></a>
     ```R
     a <- c(-1,0,1,2,3,4,5)
     b <- c("one", "two", "three", "four", "five")
@@ -209,8 +226,10 @@ BiocManager::install("package", ask = F, update = F)
     # rep(number, times_of_repeats)
     a <- rep(3,4)   # a <- c(3,3,3,3)
     ```
+    > <small>**Functions in this block:** [`c`](#apx-c), [`seq`](#apx-seq), [`rep`](#apx-rep)</small>
 ###### 2.2.1.1.2 **Accessing** elements within a vector
 
+<a name="code12"></a>
 ```R
 a <- c(-1,0,1,2,3,4,5)
 
@@ -223,8 +242,10 @@ a[c(1,3,4)]    # Returns: -1 1 2
 # Accessing the second to sixth elements in a
 a[2:6]   # Returns: 0 1 2 3 4
 ```
+> <small>**Functions in this block:** [`c`](#apx-c)</small>
 ###### 2.2.1.1.3 **Modifying** elements within a vector
 
+<a name="code13"></a>
 ```R
 a <- c(-1,0,1,2,3,4,5)
 
@@ -240,8 +261,10 @@ a   # Returns: -2 5 1 2 3 4 0
 a[3:6] <- c(4:7)
 a   # Returns: -2 5 4 5 6 7 0
 ```
+> <small>**Functions in this block:** [`c`](#apx-c)</small>
 ###### 2.2.1.1.4 **Deleting** elements within a vector
 
+<a name="code14"></a>
 ```R
 a <- c(-1,0,1,2,3,4,5)
 
@@ -257,10 +280,12 @@ a <- a[-c(1,6)]
 # Deleting the second to fourth elements in a
 a[-(2:4)]   # Returns: 1
 ```
+> <small>**Functions in this block:** [`c`](#apx-c)</small>
 ##### 2.2.1.2 Advance in Vector
 > Go [back](#221-vectors), go [down](#2213-logi-vectors), or go to [top](#notes-on-r-learning).
 ###### 2.2.1.2.1 🚩 `paste` function
 
+<a name="code15"></a>
 ```R
 # Basic format
 paste("A","B","C",1:3,sep = 'sep')
@@ -278,8 +303,10 @@ a <- paste("chr","X",1:3,sep = "_",collapse = ";")
 # Returns "chr_X_1;chr_X_2;chr_X_3"
 # This argument joins all characters together
 ```
+> <small>**Functions in this block:** [`paste`](#apx-paste)</small>
 ###### 2.2.1.2.2 **Calculation** of vectors
 
+<a name="code16"></a>
 ```R
 a <- c(1:10)
 
@@ -305,6 +332,7 @@ rev(a)  # Sorts the elements in a (倒序)
 order(a)    # Sorts the elements in a (升序) and returns the location of the elements
 a(order(a)) # Equals to sort(a)
 ```
+> <small>**Functions in this block:** [`c`](#apx-c), [`min`](#apx-min), [`max`](#apx-max), [`which.min`](#apx-which.min), [`which.max`](#apx-which.max), [`sum`](#apx-sum), [`median`](#apx-median), [`prod`](#apx-prod), [`var`](#apx-var), [`mean`](#apx-mean), [`sort`](#apx-sort), [`rev`](#apx-rev), [`order`](#apx-order)</small>
 ###### 2.2.1.2.3 Extension on data type: `NA` and `NULL`
 * Functions
 
@@ -314,14 +342,17 @@ a(order(a)) # Equals to sort(a)
     | a position without data | no position and no data |
 * *e.g.*,
 
+    <a name="code17"></a>
     ```R
     a <- c(NA, NULL, NA)
     a   # Returns NA NA
     length(c(NA, NULL, NA))   # Returns 2
     ```
+    > <small>**Functions in this block:** [`c`](#apx-c), [`length`](#apx-length)</small>
 ##### 2.2.1.3 *Logi* Vectors
 > Go [back](#221-vectors), go [down](#2214--chr-vectors), or go to [top](#notes-on-r-learning).
 
+<a name="code18"></a>
 ```R
 # Comparing values
 c(1,2,3) > 2    # Returns FALSE FALSE TRUE
@@ -339,9 +370,11 @@ a[a >= 2 & a <= 7]  # Returns 5 7 3
 a[a >= 7 | a <= 2]  # Returns 1 7 9
 a[!a >= 7]  # Returns 5 1 3
 ```
+> <small>**Functions in this block:** [`c`](#apx-c)</small>
 ##### 2.2.1.4 🚩 *Chr* Vectors
 > Go [back](#221-vectors), go [down](#222-matrices), or go to [top](#notes-on-r-learning).
 
+<a name="code19"></a>
 ```R
 # UPPER and lower case
 toupper("RevewillH")  # Returns REVEWILLH
@@ -370,6 +403,7 @@ gsub("_", "omosome_", "chr_1")    # Returns chromosome_1
 gsub("[[:alpha:]]+", "$", "revewill H") # Returns "$ $"
 gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
 ```
+> <small>**Functions in this block:** [`toupper`](#apx-toupper), [`tolower`](#apx-tolower), [`nchar`](#apx-nchar), [`substring`](#apx-substring), [`as.numeric`](#apx-as.numeric), [`c`](#apx-c), [`as.character`](#apx-as.character), [`strsplit`](#apx-strsplit), [`gsub`](#apx-gsub)</small>
 > ※ `[[:pattern:]]` is a regular expression corresponding to **one match** of `pattern`. `alpha` means *letters* (ignoring upper/lower cases), `alnum` means *numbers*, `+` means the pattern before `+` *can occur single or multiple time(s)*.
 > See [regular expression]() for more.
 #### 2.2.2 **Matrices**
@@ -380,9 +414,11 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
 ###### 2.2.2.1.1 **Creating** matrices
 * Create matrix with `matrix` function
 
+    <a name="code20"></a>
     ```R
     matrix(data = data, nrow = m, ncol = n, byrow = TRUE, dimnames = list)
     ```
+    > <small>**Functions in this block:** [`matrix`](#apx-matrix)</small>
     * `data` is the source data, must be **$m*n$** sized
     * `nrow` is the number of rows
     * `ncol` is the number of columns
@@ -394,6 +430,7 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
       * `dimnames = NULL` or no `dimnames` argument means no dimnames
     > *e.g.*,
     
+    <a name="code21"></a>
     ```R
     matrix(data = 1:10, nrow = 2, ncol = 5, byrow = TRUE, dimnames = NULL)
     # Returns
@@ -405,8 +442,10 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
     1 3 5 7  9
     2 4 6 8 10
     ```
+    > <small>**Functions in this block:** [`matrix`](#apx-matrix)</small>
 * Creating matrix with vectors
 
+    <a name="code22"></a>
     ```R
     # Assign data
     cells <- c(1:4)
@@ -433,8 +472,10 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
     Row1     1    3
     Row2     2    4
     ```
+    > <small>**Functions in this block:** [`c`](#apx-c), [`matrix`](#apx-matrix), [`list`](#apx-list), [`rownames`](#apx-rownames), [`colnames`](#apx-colnames)</small>
 * ※ Creating things with random numbers
 
+  <a name="code23"></a>
   ```R
   matrix(rnorm(15),5,3)
   # Returns a 5*3 matrix with 15 random numbers
@@ -449,8 +490,10 @@ gsub("[[:alnum:]]+", "$", "1 23 456") # Returns "$ $ $"
   # Randomly pick 4 repeatable numbers from 1 to 10
   # Or replace = F
   ```
+  > <small>**Functions in this block:** [`matrix`](#apx-matrix), [`rnorm`](#apx-rnorm), [`sample`](#apx-sample)</small>
 ###### 2.2.2.1.2 **Accessing** and **modifying** elements within a matrix
 
+<a name="code24"></a>
 ```R
 A <- matrix(1:10, nrow = 2)
 A
@@ -479,8 +522,10 @@ dim(A)  # Returns 2 5 (2 rows, 5 cols)
 nrow(A) # Returns 2
 ncol(A) # Returns 5
 ```
+> <small>**Functions in this block:** [`matrix`](#apx-matrix), [`c`](#apx-c), [`as.numeric`](#apx-as.numeric), [`paste`](#apx-paste), [`dim`](#apx-dim), [`nrow`](#apx-nrow), [`ncol`](#apx-ncol)</small>
 ###### 2.2.2.1.3 **Calculation** of matrices
 
+<a name="code25"></a>
 ```R
 # Transposition
 t(A)
@@ -513,11 +558,13 @@ X %*% Y # Multiplication
 23 31
 34 46
 ```
+> <small>**Functions in this block:** [`matrix`](#apx-matrix), [`multiplication`](#apx-multiplication)</small>
 ##### 2.2.2.2 Advance in Matrices
 > Go [back](#222-matrices), go [down](#), or go to [top](#notes-on-r-learning).
 
 ###### 2.2.2.2.1 🚩 **Operation** on rows and cols
 
+<a name="code26"></a>
 ```R
 X <- matrix(1:4, nrow = 2)
 Y <- matrix(5:8, nrow = 2)
@@ -541,8 +588,10 @@ rbind(X,Y)  # Must with same ncol
 5 7
 6 8
 ```
+> <small>**Functions in this block:** [`matrix`](#apx-matrix), [`rowSums`](#apx-rowSums), [`colSums`](#apx-colSums), [`mean`](#apx-mean), [`rowMeans`](#apx-rowMeans), [`colMeans`](#apx-colMeans), [`cbind`](#apx-cbind), [`rbind`](#apx-rbind)</small>
 ###### 2.2.2.2.2 **Advance calculation** of matrices
 
+<a name="code27"></a>
 ```R
 # Inverse matrix 求逆
 solve(X)
@@ -568,6 +617,7 @@ diag(c(1,2))
 diag(2,4) # Returns 2*I4
 diag(2,4,5) # Returns a 4*5 matrix with its first 4*4 submatrix being 2*I4
 ```
+> <small>**Functions in this block:** [`solve`](#apx-solve), [`round`](#apx-round), [`ginv`](#apx-ginv), [`svd`](#apx-svd), [`diag`](#apx-diag), [`eigen`](#apx-eigen), [`c`](#apx-c)</small>
 > `round` 取整. *e.g.*, `round(0.98)` returns `1`.
 #### 2.2.3 **Arrays**
 * **Arrays** are **multi-dim strings** of data **of a same type**
@@ -576,6 +626,7 @@ diag(2,4,5) # Returns a 4*5 matrix with its first 4*4 submatrix being 2*I4
 > Go [back](#223-arrays), go [down](#224-data-frames), or go to [top](#notes-on-r-learning).
 ###### 2.2.3.1.1 **Creating** arrays
 
+<a name="code28"></a>
 ```R
 # Creating array
 array(data = NA, dim = c(2,3,4), dimnames = NULL)
@@ -587,8 +638,10 @@ dimname_C <- c("C1","C2","C3")
 Ω <- array(1:27, c(3,3,3), dimnames = list(dimname_A, dimname_B, dimname_C))
 # if data doesn't fill the array size, then it will cycle
 ```
+> <small>**Functions in this block:** [`array`](#apx-array), [`c`](#apx-c), [`list`](#apx-list)</small>
 ###### 2.2.3.1.2 **Accessing** elements within an array
 
+<a name="code29"></a>
 ```R
 print(Ω[3,1,2])  # Or Ω[3,1,2]
 print(Ω[3,1,])  # Returns vector
@@ -597,6 +650,7 @@ print(Ω[3,,]) # Returns matrix
 # Creating matrices from arrays
 M(Ω) <- Ω[2,,]
 ```
+> <small>**Functions in this block:** [`print`](#apx-print)</small>
 #### 2.2.4 **Data frames**
 * **Data frames** are data **forms** aligned in columns
   * A column has a **unique colname**
@@ -609,14 +663,17 @@ M(Ω) <- Ω[2,,]
 
 * Basic function
 
+  <a name="code30"></a>
   ```R
   # Creating data frames
   data.frame(tag1 = vector1, tag2 = vector2, row.names = rname)
   ```
+  > <small>**Functions in this block:** [`data.frame`](#apx-data.frame)</small>
   * `tag` is the colname
   * `row.names` defines rownames, default is `NULL`
 * *e.g.*,
 
+  <a name="code31"></a>
   ```R
   u <- c(1,2)
   v <- c(TRUE, FALSE)
@@ -638,8 +695,10 @@ M(Ω) <- Ω[2,,]
   2   2   b FALSE
   3   3   c  TRUE
   ```
+  > <small>**Functions in this block:** [`c`](#apx-c), [`data.frame`](#apx-data.frame)</small>
 ###### 2.2.4.1.2 **Accessing** and **modifying** elements within a data frame
 
+<a name="code32"></a>
 ```R
 # Acquiring overview and statistics on data frame
 str(DF) # Returns data structure
@@ -663,8 +722,10 @@ DF
 2   2   b FALSE   NA
 3   3   c  TRUE   NA
 ```
+> <small>**Functions in this block:** [`str`](#apx-str), [`summary`](#apx-summary), [`rep`](#apx-rep)</small>
 ###### 2.2.4.1.2 **Operation** on rows and cols
 
+<a name="code33"></a>
 ```R
 # rbind and cbind
 DF
@@ -691,6 +752,7 @@ rbind(DF, DF2)
 3   3   c  TRUE   NA
 4   4   d FALSE   NA
 ```
+> <small>**Functions in this block:** [`data.frame`](#apx-data.frame), [`c`](#apx-c), [`cbind`](#apx-cbind), [`rbind`](#apx-rbind)</small>
 #### 2.2.5 **Lists**
 * **Lists** are containers of **different** types/structures of data
   * May include *data*, *vectors*, *matrices*, *arrays*, *data frames*, and even other *lists*.
@@ -698,6 +760,7 @@ rbind(DF, DF2)
 > Go [back](#225-lists), go [down](#2252-advance-in-list), or go to [top](#notes-on-r-learning).
 ###### 2.2.5.1.1 **Creating** lists
 
+<a name="code34"></a>
 ```R
 # Creating a list
 List <- list(
@@ -785,8 +848,10 @@ List <- list(
   )
 )
 ```
+> <small>**Functions in this block:** [`list`](#apx-list), [`c`](#apx-c), [`matrix`](#apx-matrix), [`names`](#apx-names)</small>
 ###### 2.2.5.1.2 **Accessing** and **modifying** elements within a list
 
+<a name="code35"></a>
 ```R
 # Accessing the second item
 List[2] # Returns [1] "H"
@@ -803,6 +868,7 @@ List$Username <- NULL
 ```
 ###### 2.2.5.1.3 **Operation** on lists
 
+<a name="code36"></a>
 ```R
 L1 <- list(1:3)
 L2 <- list(4:6)
@@ -816,9 +882,11 @@ V1 <- unlist(L1)
 V2 <- unlist(L2)
 V1 + V2 # Returns 5 7 9
 ```
+> <small>**Functions in this block:** [`list`](#apx-list), [`c`](#apx-c), [`unlist`](#apx-unlist)</small>
 ##### 2.2.5.2 Advance in List
 > Go [back](#225-lists), go [down](), or go to [top](#notes-on-r-learning).
 
+<a name="code37"></a>
 ```R
 List <- list(
   c(1,2,3),
@@ -861,14 +929,15 @@ DF[,1]
 [1] 1 2
 # Extracting a column is extracting the corresponding vector
 ```
+> <small>**Functions in this block:** [`list`](#apx-list), [`c`](#apx-c), [`data.frame`](#apx-data.frame)</small>
 ---
 ## 3. Data Management
-* **Importing** and **exporting** common files
-### 3.1 `csv` and `xlsx` files
-> Go [back](#3-data-management), go [down](#32-txt-files), or go to [top](#notes-on-r-learning).
-
+### 3.1 **Importing** and **exporting** common files
+> Go [back](#3-data-management), go [down](), or go to [top](#notes-on-r-learning).
+#### 3.1.1 `csv` and `xlsx` files
 > `csv` files use comma as separators to store forms. If a string contains comma, `csv` wraps it with `""`. For example, in `sample.csv`:
 
+<a name="code38"></a>
 ```R
 num,chr,logi
 1,a,TRUE
@@ -876,8 +945,10 @@ num,chr,logi
 3,c,TRUE
 4,d,FALSE
 ```
-#### 3.1.1 **Reading** and **saving** `csv` files
+##### 3.1.1.1 **Reading** and **saving** `csv` files
+> Go [back](#311-csv-and-xlsx-files), go [down](#3112-operation-on-xlsx-files), or go to [top](#notes-on-r-learning).
 
+<a name="code39"></a>
 ```R
 # Read
 CSV_Data <- read.csv("sample.csv", encoding = "UTF-8")
@@ -901,15 +972,20 @@ Subset
 write.csv(Subset, "sample_subset.csv", row.names = FALSE)
 read.csv("write.csv", enconding = "UTF-8")
 ```
-#### 3.1.2 **Operation** on `xlsx` files
+> <small>**Functions in this block:** [`read.csv`](#apx-read.csv), [`subset`](#apx-subset), [`write.csv`](#apx-write.csv)</small>
+##### 3.1.1.2 **Operation** on `xlsx` files
+> Go [back](#311-csv-and-xlsx-files), go [down](#312-txt-files), or go to [top](#notes-on-r-learning).
 * ※ Operation on `xlsx` files requires installing package `"xlsx"`:
   
+  <a name="code40"></a>
   ```R
   install.packages("xlsx")
   library("xlsx")
   ```
+  > <small>**Functions in this block:** [`install.packages`](#apx-install.packages), [`library`](#apx-library)</small>
 * Operation:
 
+  <a name="code41"></a>
   ```R
   # Read
   XLSX_Data <- read.xlsx("sample.xlsx", sheetIndex = 1)
@@ -920,9 +996,10 @@ read.csv("write.csv", enconding = "UTF-8")
   # append = TRUE means that the created new sheet is in the original file after the last sheet in that file (追加)
   # append = FALSE means override (覆盖)
   ```
-### 3.2 `txt` files
-> Go [back](#3-data-management), go [down](#4-advanced-data-management), or go to [top](#notes-on-r-learning).
+  > <small>**Functions in this block:** [`read.xlsx`](#apx-read.xlsx), [`write.xlsx`](#apx-write.xlsx)</small>
+#### 3.1.2 `txt` files
 
+<a name="code42"></a>
 ```R
 #Read
 TXT_Data <- read.table("sample.txt", header = TRUE, sep = "\t", row.names = 1, stringAsFactors = FALSE)
@@ -937,112 +1014,308 @@ read.table("sample.csv", sep = ",")
 # Write
 write.table(TXT_Data, "new_sample.txt", sep = "\t")
 ```
-## 4. Advanced Data Management
-### 4.1 **Loop** Sentences
-> Go [back](#4-advanced-data-management), go [down](), or go to [top](#notes-on-r-learning).
-#### 4.1.1 `for` loop
-* Basics in `for` loop
+> <small>**Functions in this block:** [`read.table`](#apx-read.table), [`write.table`](#apx-write.table)</small>
 
-  ```R
-  for (i in 1:3) {
-    print(i)
-  } # Returns 1 2 3
 
-  v <- rep("a",3)
-  for (i in v) {
-    print(i)
-  } # Returns "a" "a" "a"
-  ```
-  > *i.e.*, as long as `i in vector`, `for` loop is effective, and its cycle time is the length of that `vector`
-  * Calculating *vector* sum
-    ```R
-    # Create a random vector with runif
-    v <- runif(10, min = 0, max = 1)
-    # Created a vector with 10 random numbers between 0 and 1
-    
-    # Calculate
-    sum <- 0
-    for (i in 1:length(v)) {
-      sum <- sum + v[i] # sum = sum + the i^th element in v
-    }
-    print(sum)
-    ```
-  * Calculating *matrix* sum
-    ```R
-    # Create a random 4*5 matrix
-    M <- matrix(
-      runif(20, min = 0, max = 1),
-      4
-    )
-    
-    # Calculate
-    sum <- 0
-    for (i in 1:nrow(M)) {
-      for (j in 1:ncol(M)) {
-        sum <- sum + M[i,j]
-      }
-    }
-    print(sum)
-    ```
-* Advance in `for` loop
-  * ※ `cat` v. `print`
-  
-    ```R
-    for (i in 1:2) {
-      print("a","b")
-    }
-    # Returns
-    a
-    a
+# Apx. Cheatsheet
 
-    for (i in 1:2) {
-      cat("a","b")
-    }
-    # Returns
-    a ba b
-    ```
-  * Create a table
-  
-    ```R
-    for (i in 1:9) {
-      for (j in 1:i) {
-        m = j * i
-        cat(i,"*",j,"=",m,"\t")
-      }
-      cat("\n")
-    }
-    ```
-#### 4.1.2 `while` loop
-* Basics in `while` loop
+###### 1. <a name="apx-array"></a> `array` : [28](#code28)
+<small>
+</small>
 
-  ```R
-  while (condition) {
-    statement(s)
-  }
-  # condition returns either TRUE or FALSE
-  # e.g.
-  i <- 1
-  while (i < 4) {
-    print(i)
-    i = i + 1 # This is vital!
-  }
-  print(i)  # Returns 3
-  # Each time the statement is done, condition will be checked for TRUE or FALSE
-  # The loop discontinue at logi value FALSE
+###### 2. <a name="apx-as.character"></a> `as.character` : [19](#code19)
+<small>
+</small>
 
-  # Why while is needed
-  a <- seq(1,1000000,287)
-  i <- 1000000
-  while (a[i] > 931256) {
-    i = i - 1
-  }
-  print(
-    paste(
-      "The first element to exceed 931256 is ",
-      a[i+1],
-      ".",
-      sep = ""
-    )
-  )
-  # Returns The first element to exceed 931256 is 931316.
-  ```
+###### 3. <a name="apx-as.factor"></a> `as.factor` : [8](#code8)
+<small>
+</small>
+
+###### 4. <a name="apx-as.integer"></a> `as.integer` : [6](#code6)
+<small>
+</small>
+
+###### 5. <a name="apx-as.numeric"></a> `as.numeric` : [19](#code19) [24](#code24)
+<small>
+</small>
+
+###### 6. <a name="apx-c"></a> `c` : [8](#code8) [9](#code9) [10](#code10) [11](#code11) [12](#code12) [13](#code13) [14](#code14) [16](#code16) [17](#code17) [18](#code18) [19](#code19) [22](#code22) [24](#code24) [27](#code27) [28](#code28) [31](#code31) [33](#code33) [34](#code34) [36](#code36) [37](#code37)
+<small>
+</small>
+
+###### 7. <a name="apx-cbind"></a> `cbind` : [26](#code26) [33](#code33)
+<small>
+</small>
+
+###### 8. <a name="apx-class"></a> `class` : [7](#code7)
+<small>
+</small>
+
+###### 9. <a name="apx-colMeans"></a> `colMeans` : [26](#code26)
+<small>
+</small>
+
+###### 10. <a name="apx-colnames"></a> `colnames` : [22](#code22)
+<small>
+</small>
+
+###### 11. <a name="apx-colSums"></a> `colSums` : [26](#code26)
+<small>
+</small>
+
+###### 12. <a name="apx-data.frame"></a> `data.frame` : [30](#code30) [31](#code31) [33](#code33) [37](#code37)
+<small>
+</small>
+
+###### 13. <a name="apx-diag"></a> `diag` : [27](#code27)
+<small>
+</small>
+
+###### 14. <a name="apx-dim"></a> `dim` : [24](#code24)
+<small>
+</small>
+
+###### 15. <a name="apx-eigen"></a> `eigen` : [27](#code27)
+<small>
+</small>
+
+###### 16. <a name="apx-factor"></a> `factor` : [8](#code8) [10](#code10)
+<small>
+</small>
+
+###### 17. <a name="apx-getwd"></a> `getwd` : [3](#code3)
+<small>
+</small>
+
+###### 18. <a name="apx-ginv"></a> `ginv` : [27](#code27)
+<small>
+</small>
+
+###### 19. <a name="apx-gl"></a> `gl` : [9](#code9)
+<small>
+</small>
+
+###### 20. <a name="apx-gsub"></a> `gsub` : [19](#code19)
+<small>
+</small>
+
+###### 21. <a name="apx-install"></a> `install` : [1](#code1)
+<small>
+</small>
+
+###### 22. <a name="apx-install.packages"></a> `install.packages` : [1](#code1) [40](#code40)
+<small>
+</small>
+
+###### 23. <a name="apx-is.integer"></a> `is.integer` : [7](#code7)
+<small>
+</small>
+
+###### 24. <a name="apx-is.numeric"></a> `is.numeric` : [7](#code7)
+<small>
+</small>
+
+###### 25. <a name="apx-length"></a> `length` : [17](#code17)
+<small>
+</small>
+
+###### 26. <a name="apx-library"></a> `library` : [2](#code2) [40](#code40)
+<small>
+</small>
+
+###### 27. <a name="apx-list"></a> `list` : [22](#code22) [28](#code28) [34](#code34) [36](#code36) [37](#code37)
+<small>
+</small>
+
+###### 28. <a name="apx-matrix"></a> `matrix` : [20](#code20) [21](#code21) [22](#code22) [23](#code23) [24](#code24) [25](#code25) [26](#code26) [34](#code34)
+<small>
+</small>
+
+###### 29. <a name="apx-max"></a> `max` : [16](#code16)
+<small>
+</small>
+
+###### 30. <a name="apx-mean"></a> `mean` : [16](#code16) [26](#code26)
+<small>
+</small>
+
+###### 31. <a name="apx-median"></a> `median` : [16](#code16)
+<small>
+</small>
+
+###### 32. <a name="apx-min"></a> `min` : [16](#code16)
+<small>
+</small>
+
+###### 33. <a name="apx-multiplication"></a> `multiplication` : [25](#code25)
+<small>
+</small>
+
+###### 34. <a name="apx-names"></a> `names` : [34](#code34)
+<small>
+</small>
+
+###### 35. <a name="apx-nchar"></a> `nchar` : [19](#code19)
+<small>
+</small>
+
+###### 36. <a name="apx-ncol"></a> `ncol` : [24](#code24)
+<small>
+</small>
+
+###### 37. <a name="apx-nrow"></a> `nrow` : [24](#code24)
+<small>
+</small>
+
+###### 38. <a name="apx-order"></a> `order` : [8](#code8) [16](#code16)
+<small>
+</small>
+
+###### 39. <a name="apx-paste"></a> `paste` : [15](#code15) [24](#code24)
+<small>
+</small>
+
+###### 40. <a name="apx-print"></a> `print` : [29](#code29)
+<small>
+</small>
+
+###### 41. <a name="apx-prod"></a> `prod` : [16](#code16)
+<small>
+</small>
+
+###### 42. <a name="apx-rbind"></a> `rbind` : [26](#code26) [33](#code33)
+<small>
+</small>
+
+###### 43. <a name="apx-read.csv"></a> `read.csv` : [39](#code39)
+<small>
+</small>
+
+###### 44. <a name="apx-read.table"></a> `read.table` : [42](#code42)
+<small>
+</small>
+
+###### 45. <a name="apx-read.xlsx"></a> `read.xlsx` : [41](#code41)
+<small>
+</small>
+
+###### 46. <a name="apx-rep"></a> `rep` : [11](#code11) [32](#code32)
+<small>
+</small>
+
+###### 47. <a name="apx-rev"></a> `rev` : [16](#code16)
+<small>
+</small>
+
+###### 48. <a name="apx-rm"></a> `rm` : [5](#code5)
+<small>
+</small>
+
+###### 49. <a name="apx-rnorm"></a> `rnorm` : [23](#code23)
+<small>
+</small>
+
+###### 50. <a name="apx-round"></a> `round` : [27](#code27)
+<small>
+</small>
+
+###### 51. <a name="apx-rowMeans"></a> `rowMeans` : [26](#code26)
+<small>
+</small>
+
+###### 52. <a name="apx-rownames"></a> `rownames` : [22](#code22)
+<small>
+</small>
+
+###### 53. <a name="apx-rowSums"></a> `rowSums` : [26](#code26)
+<small>
+</small>
+
+###### 54. <a name="apx-sample"></a> `sample` : [23](#code23)
+<small>
+</small>
+
+###### 55. <a name="apx-seq"></a> `seq` : [11](#code11)
+<small>
+</small>
+
+###### 56. <a name="apx-setwd"></a> `setwd` : [3](#code3)
+<small>
+</small>
+
+###### 57. <a name="apx-solve"></a> `solve` : [27](#code27)
+<small>
+</small>
+
+###### 58. <a name="apx-sort"></a> `sort` : [10](#code10) [16](#code16)
+<small>
+</small>
+
+###### 59. <a name="apx-str"></a> `str` : [32](#code32)
+<small>
+</small>
+
+###### 60. <a name="apx-strsplit"></a> `strsplit` : [19](#code19)
+<small>
+</small>
+
+###### 61. <a name="apx-structure"></a> `structure` : [8](#code8)
+<small>
+</small>
+
+###### 62. <a name="apx-subset"></a> `subset` : [39](#code39)
+<small>
+</small>
+
+###### 63. <a name="apx-substring"></a> `substring` : [19](#code19)
+<small>
+</small>
+
+###### 64. <a name="apx-sum"></a> `sum` : [16](#code16)
+<small>
+</small>
+
+###### 65. <a name="apx-summary"></a> `summary` : [32](#code32)
+<small>
+</small>
+
+###### 66. <a name="apx-svd"></a> `svd` : [27](#code27)
+<small>
+</small>
+
+###### 67. <a name="apx-tolower"></a> `tolower` : [19](#code19)
+<small>
+</small>
+
+###### 68. <a name="apx-toupper"></a> `toupper` : [19](#code19)
+<small>
+</small>
+
+###### 69. <a name="apx-unlist"></a> `unlist` : [36](#code36)
+<small>
+</small>
+
+###### 70. <a name="apx-var"></a> `var` : [16](#code16)
+<small>
+</small>
+
+###### 71. <a name="apx-which.max"></a> `which.max` : [16](#code16)
+<small>
+</small>
+
+###### 72. <a name="apx-which.min"></a> `which.min` : [16](#code16)
+<small>
+</small>
+
+###### 73. <a name="apx-write.csv"></a> `write.csv` : [39](#code39)
+<small>
+</small>
+
+###### 74. <a name="apx-write.table"></a> `write.table` : [42](#code42)
+<small>
+</small>
+
+###### 75. <a name="apx-write.xlsx"></a> `write.xlsx` : [41](#code41)
+<small>
+</small>
+
