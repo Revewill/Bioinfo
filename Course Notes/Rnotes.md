@@ -42,8 +42,11 @@
           - [2.2.5.1.3 **Operation** on lists](#22513-operation-on-lists)
         - [2.2.5.2 Advance in List](#2252-advance-in-list)
   - [3. Data Management](#3-data-management)
-    - [2.1 **Importing** and **exporting** common files](#21-importing-and-exporting-common-files)
-      - [2.1.1 **Importing** `csv` files](#211-importing-csv-files)
+    - [3.1 **Importing** and **exporting** common files](#31-importing-and-exporting-common-files)
+      - [3.1.1 `csv` and `xlsx` files](#311-csv-and-xlsx-files)
+        - [3.1.1.1 **Reading** and **saving** `csv` files](#3111-reading-and-saving-csv-files)
+        - [3.1.1.2 **Operation** on `xlsx` files](#3112-operation-on-xlsx-files)
+      - [3.1.2 `txt` files](#312-txt-files)
 
 ---
 ## 1. [Package installation](#11--install-packages) and [basic commands](#12-basic-commands)
@@ -857,7 +860,78 @@ DF[,1]
 ```
 ---
 ## 3. Data Management
-### 2.1 **Importing** and **exporting** common files
+### 3.1 **Importing** and **exporting** common files
 > Go [back](#3-data-management), go [down](), or go to [top](#notes-on-r-learning).
-#### 2.1.1 **Importing** `csv` files
+#### 3.1.1 `csv` and `xlsx` files
+> `csv` files use comma as separators to store forms. If a string contains comma, `csv` wraps it with `""`. For example, in `sample.csv`:
+
+```R
+num,chr,logi
+1,a,TRUE
+2,b,FALSE
+3,c,TRUE
+4,d,FALSE
+```
+##### 3.1.1.1 **Reading** and **saving** `csv` files
+> Go [back](#311-csv-and-xlsx-files), go [down](#3112-operation-on-xlsx-files), or go to [top](#notes-on-r-learning).
+
+```R
+# Read
+CSV_Data <- read.csv("sample.csv", encoding = "UTF-8")
+CSV_Data
+# Returns the following data frame
+  num chr  logi
+1   1   a  TRUE
+2   2   b FALSE
+3   3   c  TRUE
+4   4   d FALSE
+
+# Create subset
+Subset <- subset(CSV_Data, chr == "b" | num == 3)
+Subset
+# Returns
+  num chr  logi
+2   2   b FALSE
+3   3   c  TRUE
+
+# Write Subset into a new .csv file
+write.csv(Subset, "sample_subset.csv", row.names = FALSE)
+read.csv("write.csv", enconding = "UTF-8")
+```
+##### 3.1.1.2 **Operation** on `xlsx` files
+> Go [back](#311-csv-and-xlsx-files), go [down](#312-txt-files), or go to [top](#notes-on-r-learning).
+* ※ Operation on `xlsx` files requires installing package `"xlsx"`:
+  
+  ```R
+  install.packages("xlsx")
+  library("xlsx")
+  ```
+* Operation:
+
+  ```R
+  # Read
+  XLSX_Data <- read.xlsx("sample.xlsx", sheetIndex = 1)
+  # Argument sheetIndex defines which sheet inside the file to read
+
+  # Write
+  write.xlsx(XLSX_Data, "samples.xlsx", sheetName = "new_sample", append = TRUE)
+  # append = TRUE means that the created new sheet is in the original file after the last sheet in that file (追加)
+  # append = FALSE means override (覆盖)
+  ```
+#### 3.1.2 `txt` files
+
+```R
+#Read
+TXT_Data <- read.table("sample.txt", header = TRUE, sep = "\t", row.names = 1, stringAsFactors = FALSE)
+# header = TRUE means taking the first row as table header, = FALSE means otherwise
+# sep = "\t" means the separator in .txt files is "\t"
+# row.names = 1 means taking the first column as rownames
+# stringAsFactors = FALSE means not transforming chr variables as factors, is default
+
+# read.table function could also apply to csv files
+read.table("sample.csv", sep = ",")
+
+# Write
+write.table(TXT_Data, "new_sample.txt", sep = "\t")
+```
 
