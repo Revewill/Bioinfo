@@ -515,7 +515,7 @@ X %*% Y # Multiplication
 34 46
 ```
 ##### 2.2.2.2 Advance in Matrices
-> Go [back](#222-matrices), go [down](#), or go to [top](#notes-on-r-learning).
+> Go [back](#222-matrices), go [down](#223-arrays), or go to [top](#notes-on-r-learning).
 
 ###### 2.2.2.2.1 🚩 **Operation** on rows and cols
 
@@ -818,7 +818,7 @@ V2 <- unlist(L2)
 V1 + V2 # Returns 5 7 9
 ```
 ##### 2.2.5.2 Advance in List
-> Go [back](#225-lists), go [down](), or go to [top](#notes-on-r-learning).
+> Go [back](#225-lists), go [down](#3-data-management), or go to [top](#notes-on-r-learning).
 
 ```R
 List <- list(
