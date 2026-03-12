@@ -57,8 +57,8 @@
 ### 2. Isolating Mappings onto Introns
 #### 2.1 Run command
 ```bash
-$ $ bedtools intersect -a COAD.ACTB.bam -b ACTB_intron_intervals.bed -u > COAD.ACTB.intron.bam \
-$ && samtools fastq COAD.ACTB.intron.bam > COAD_ACTB_intron.fastq
+$ bedtools intersect -a COAD.ACTB.bam -b ACTB_intron_intervals.bed -u > COAD.ACTB.intron.bam \
+> && samtools fastq COAD.ACTB.intron.bam > COAD_ACTB_intron.fastq
 # Returns
 [M::bam2fq_mainloop] discarded 0 singletons
 [M::bam2fq_mainloop] processed 15132 reads
