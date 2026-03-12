@@ -1,4 +1,5 @@
-# Extinguishing single- and paired-end sequencing
+# Dstinguishing between single- and paired-end sequencing
+> An answer `md` file for Bioinformatics_Homework_Mapping_bedtools_and_samtools_T1
 * `samtools flagstat` reads and demonstrates `FLAG` data in `bam` files
   * `paired in sequencing`, `read1`, `read2`, etc. are all relevant with paired-end sequencing
 * File `COAD.ACTB.bam` is a single-end sequencing file
