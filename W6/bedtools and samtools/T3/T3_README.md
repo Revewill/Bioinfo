@@ -2,9 +2,9 @@
 > A README `md` file for Bioinformatics_Homework_Mapping_bedtools_and_samtools_T3
 ---
 ### 1. Pinpointing Intron Intervals
-#### 1.1 Create [`bash` script](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20%and%20%samtools/T3/Script/ACTB_intron_intervals_bed.sh)
+#### 1.1 Create [`bash` script](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20and%20samtools/T3/Script/ACTB_intron_intervals_bed.sh)
 > Click to [skip the script](#12-run-script-and-check)
-* Script [ACTB_intron_intervals_bed.sh](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20%and%20%samtools/T3/Script/ACTB_intron_intervals_bed.sh)
+* Script [ACTB_intron_intervals_bed.sh](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20and%20samtools/T3/Script/ACTB_intron_intervals_bed.sh)
     ```bash
     #!/bin/bash
     # This script finds all intron intervals in ACTB gene.
@@ -37,14 +37,14 @@
 
     rm \.[a-z]*.bed
     ```
-#### 1.2 Run [script](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20%and%20%samtools/T3/Script/ACTB_intron_intervals_bed.sh) and check [result](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20%and%20%samtools/T3/Results/ACTB_intron_intervals.bed)
-* Run [script](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20%and%20%samtools/T3/Script/ACTB_intron_intervals_bed.sh)
+#### 1.2 Run [script](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20and%20samtools/T3/Script/ACTB_intron_intervals_bed.sh) and check [result](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20and%20samtools/T3/Results/ACTB_intron_intervals.bed)
+* Run [script](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20and%20samtools/T3/Script/ACTB_intron_intervals_bed.sh)
 
   ```bash
   $ bash ACTB_intron_intervals_bed.sh
   ```
-* Check [result](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20%and%20%samtools/T3/Results/ACTB_intron_intervals.bed)
-  * Click to download `bed` file [ACTB_introns_intervals.bed](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20%and%20%samtools/T3/Results/ACTB_intron_intervals.bed)
+* Check [result](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20and%20samtools/T3/Results/ACTB_intron_intervals.bed)
+  * Click to download `bed` file [ACTB_introns_intervals.bed](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20and%20samtools/T3/Results/ACTB_intron_intervals.bed)
   * Or view it here (Click to [skip](#2-isolating-mappings-onto-introns))
     ```
     chr7	5528185	5528280	ENSG00000075624.17	.	-
@@ -63,5 +63,5 @@ $ bedtools intersect -a COAD.ACTB.bam -b ACTB_intron_intervals.bed -u > COAD.ACT
 [M::bam2fq_mainloop] discarded 0 singletons
 [M::bam2fq_mainloop] processed 15132 reads
 ```
-#### 2.2 Check [result](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20%and%20%samtools/T3/Results/COAD_ACTB_intron.fastq)
-* Click to download `fastq` file [COAD_ACTB_intron.fastq](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20%and%20%samtools/T3/Results/COAD_ACTB_intron.fastq)
+#### 2.2 Check [result](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20and%20samtools/T3/Results/COAD_ACTB_intron.fastq)
+* Click to download `fastq` file [COAD_ACTB_intron.fastq](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20and%20samtools/T3/Results/COAD_ACTB_intron.fastq)

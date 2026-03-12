@@ -29,7 +29,7 @@
 ---
 ### 2. Analysis on Provided `bam` File
 #### 2.1 Created a `bash` script
-> Click to [download](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20%and%20%samtools/T2/sec_align_bam.sh) `sec_align_bam.sh`.
+> Click to [download](https://revewill.github.io/Bioinfo.Revewill.github.io/W6/bedtools%20and%20samtools/T2/sec_align_bam.sh) `sec_align_bam.sh`.
 
 ```bash
 #!/bin/bash
