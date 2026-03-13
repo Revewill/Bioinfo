@@ -56,6 +56,8 @@
         - [4.2.2.2 Example](#4222-example)
       - [4.2.2 `tapply` function](#422-tapply-function)
         - [4.2.2.1 Basic Grammar](#4221-basic-grammar)
+      - [4.2.2.2 Example](#4222-example-1)
+      - [4.2.3 `by` function](#423-by-function)
 
 ---
 ## 1. Package installation and basic commands
@@ -1114,4 +1116,43 @@ apply(Ω, c(1,2), sum)
 ```
 #### 4.2.2 `tapply` function
 ##### 4.2.2.1 Basic Grammar
+> Go [back](#422-tapply-function), go [down](#4222-example), or go to [top](#notes-on-r-learning).
+
+```R
+tapply(array, indices, FUN = NULL)
+```
+* `indices` is a group variant that selects the target from the array, similar to `margin`
+* `FUN` describes the operation
+#### 4.2.2.2 Example
 > Go [back](#422-tapply-function), go [down](), or go to [top](#notes-on-r-learning).
+
+```R
+# 1D vector
+v <- c(1:5)
+group <- c("a", "a", "a", "b", "b")
+tapply(v, group)
+# Returns
+[1] 1 1 1 2 2 # Appoint a as 1, b as 2
+
+tapply(v, group, sum)
+# Returns
+a b 
+6 9
+# 6 = 1 + 2 + 3; 9 = 4 + 5
+
+# 2D matrix
+M <- matrix(1:10, 2)
+group <- matrix(c(rep(1,5), rep(2,5)), 2, byrow = TRUE)
+group
+# Returns
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    1    1    1    1
+[2,]    2    2    2    2    2
+
+tapply(M, group, mean)
+# Returns
+1 2
+5 6
+# 5 = mean(1,3,5,7,9); 6 = mean(2,4,6,8,10)
+```
+#### 4.2.3 `by` function
