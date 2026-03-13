@@ -58,6 +58,11 @@
         - [4.2.2.1 Basic Grammar](#4221-basic-grammar)
       - [4.2.2.2 Example](#4222-example-1)
       - [4.2.3 `by` function](#423-by-function)
+      - [4.2.4 `lapply` function](#424-lapply-function)
+        - [4.2.4.1 Basic Grammar](#4241-basic-grammar)
+        - [4.2.4.2 Practical Usage](#4242-practical-usage)
+        - [4.2.4.3 `sapply` function](#4243-sapply-function)
+      - [4.2.5 `mapply` function](#425-mapply-function)
 
 ---
 ## 1. Package installation and basic commands
@@ -1124,7 +1129,7 @@ tapply(array, indices, FUN = NULL)
 * `indices` is a group variant that selects the target from the array, similar to `margin`
 * `FUN` describes the operation
 #### 4.2.2.2 Example
-> Go [back](#422-tapply-function), go [down](), or go to [top](#notes-on-r-learning).
+> Go [back](#422-tapply-function), go [down](#423-by-function), or go to [top](#notes-on-r-learning).
 
 ```R
 # 1D vector
@@ -1156,3 +1161,172 @@ tapply(M, group, mean)
 # 5 = mean(1,3,5,7,9); 6 = mean(2,4,6,8,10)
 ```
 #### 4.2.3 `by` function
+
+```R
+DF <- data.frame('a' = c(1:5), 'b' = c(6:10))
+DF
+# Returns
+  a  b
+1 1  6
+2 2  7
+3 3  8
+4 4  9
+5 5 10
+
+group <- c(1,1,1,2,2)
+by(DF, group, colMeans)
+# Returns
+group: 1
+a b
+2 7
+---
+group: 2
+  a   b
+4.5 9.5
+# for all elements grouped as 1, show their means as columns
+# 2 = mean(1,2,3); 7 = mean(6,7,8); 4.5 = mean(4,5); 9.5 = mean(9,10)
+```
+#### 4.2.4 `lapply` function
+##### 4.2.4.1 Basic Grammar
+> Go [back](#424-lapply-function), go [down](#4242-practical-usage), or go to [top](#notes-on-r-learning).
+```R
+List <- list('a' = c(1:5), 'b' = c(6:10))
+lapply(List, mean)  # Operate on every element in List
+# Returns the following LIST
+$a
+[1] 3
+
+$b
+[1] 8
+# 3 = mean(1:5), 8 = mean(6:10)
+as.data.frame(lapply(List, mean)) # Returns a data frame
+```
+##### 4.2.4.2 Practical Usage
+> Go [back](#424-lapply-function), go [down](#4243-sapply-function), or go to [top](#notes-on-r-learning).
+* Processing strings
+
+  ```R
+  Chrs <- c(paste("chr", 1:22, sep = "_"), "chr_X", "chr_Y")
+  Chrs
+  # Returns
+  [1] "chr_1"  "chr_2"  "chr_3"  "chr_4"  "chr_5"  "chr_6"  "chr_7"  "chr_8" 
+  [9] "chr_9"  "chr_10" "chr_11" "chr_12" "chr_13" "chr_14" "chr_15" "chr_16"
+  [17] "chr_17" "chr_18" "chr_19" "chr_20" "chr_21" "chr_22" "chr_X"  "chr_Y"
+
+  # Use lapply to extract the data after "chr_"
+  # 1. Split each string to 2 parts
+  Chrs_split <- strsplit(Chrs, "_")
+  # This is a list of vectors like "chr" "1"
+  # 2. lapply the list above
+  Chrs_split_col2 <- lapply(Chrs_split, function(x) x[2])
+  # Returns a list composed of "1", "2", etc.
+  # 3. Transform list to vector
+  unlist(Chrs_split_col2)
+  ```
+  > ※ `function` function: define a function as described. *e.g.*,
+
+  ```R
+  function(x) x[2]
+  # x is now a function
+
+  lapply(Chrs_split, function(x) x[2])
+  # When read the first element in the list ("chr" "1"), x = c("chr", "1")
+  # As defined, the function should extract the second element in x, namely "1"
+  ```
+* Practical problem
+  ```R
+  # Create data frame
+  gene_num <- kronecker(1:3, rep(1,4))
+  # Returns 1 1 1 1 2 2 2 2 3 3 3 3
+  genes <- paste("gene", gene_num, sep = "_")
+  statistics <- rnorm(12)
+  annotation <- factor(
+    sample(0:1, 12, replace = TRUE),
+    levels = c(0,1),
+    labels = c("intron", "extron")
+  )
+  DF <- data.frame('gene' = genes, 'annotation' = annotation, 'statistics' = statistics)
+  DF
+  # Returns
+       gene annotation statistics
+  1  gene_1     extron -1.5428729
+  2  gene_1     intron  0.2065718
+  3  gene_1     intron -0.5648594
+  4  gene_1     extron -1.6124580
+  5  gene_2     intron  1.9675348
+  6  gene_2     extron  2.0591199
+  7  gene_2     intron -0.4296537
+  8  gene_2     extron -1.2477404
+  9  gene_3     intron -0.6384987
+  10 gene_3     intron  0.8182184
+  11 gene_3     intron -1.3381384
+  12 gene_3     extron -1.6277678
+
+  # Use tapply to group each gene
+  tapply(DF$statistics, DF$gene, sum)
+  # Returns
+     gene_1    gene_2    gene_3 
+  -3.513619  2.349261 -2.786187
+
+  # Use tapply to group each gene and then group each annotation
+  tapply(DF$statistics, DF[,c('gene', 'annotation')], sum)
+  # Returns
+             intron     extron
+  gene_1 -0.3582876 -3.1553309
+  gene_2  1.5378811  0.8113795
+  gene_3 -1.1584188 -1.6277678
+  ```
+##### 4.2.4.3 `sapply` function
+> Go [back](#424-lapply-function), go [down](#425-mapply-function), or go to [top](#notes-on-r-learning).
+
+> Contains argument `simplify`; if `simplify` = `TRUE`, it returns a vector/matrix (doesn't require `unlist`); otherwise, `sapply` is identical with `lapply`
+
+```R
+Chrs_split_col2 <- sapply(Chrs_split, function(x) x[2], simplify = TRUE)
+# Chrs_split_col2 is now a vector itself
+```
+#### 4.2.5 `mapply` function
+> Could import **multiple** data
+> Key difference: `mapply(FUN, data1, data2)` (`FUN` is the 1<sup>st</sup> argument) 
+* Usage in *lists*
+
+  ```R
+  # Create three lists
+  for (i in 1:3) {
+    assign(
+      paste("List", i, sep = ""),
+      list('a' = 3*i - 2, 'b' = 3*i - 1, 'c' = 3*i)
+    )
+  }
+
+  # mapply function
+  mapply(sum, List1, List2, List3)
+  # Returns a vector (default SIMPLIFY = TRUE)
+  a  b  c 
+  12 15 18
+  # 12 = 1 + 4 + 7, etc.
+  mapply(sum, List1, List2, List3, SIMPLIFY = FALSE)
+  # Returns a list
+  $a
+  [1] 12
+
+  $b
+  [1] 15
+
+  $c
+  [1] 18
+  ```
+* Usage in *vectors*
+
+  ```R
+  mapply(function(x,y) x^y, c(1:5), c(1:5))
+  # Returns a vector
+  [1]    1    4   27  256 3125
+
+  mapply(function(x,y) c(x+y, x^y), c(1:5), c(1:5))
+  # Returns a matrix
+       [,1] [,2] [,3] [,4] [,5]
+  [1,]    2    4    6    8   10
+  [2,]    1    4   27  256 3125
+  ```
+---
