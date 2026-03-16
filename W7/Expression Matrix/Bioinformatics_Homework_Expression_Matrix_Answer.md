@@ -86,4 +86,4 @@ awk '$1 == "AT1G09530"{print $0}' result/Shape02.featurecounts.exon.txt \
 86
 ```
 
-[result file](https://revewill.github.io/Bioinfo.Revewill.github.io/W7/Expression%20Matrix/T3/Shape02.featurecounts.exon.txt) 
+[result file](https://revewill.github.io/Bioinfo.Revewill.github.io/W7/Expression%20Matrix/T3/Shape02.featurecounts.exon.txt)
