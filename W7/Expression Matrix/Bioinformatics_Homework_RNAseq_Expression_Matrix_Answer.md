@@ -200,6 +200,7 @@ awk '$1 == "AT1G09530"{print $0}' result/Shape02.featurecounts.exon.txt \
 > Direct to [top](#expression-matrix) quickly here.
 * For `R` script, [download](https://revewill.github.io/Bioinfo.Revewill.github.io/W7/Expression%20Matrix/T4/Script/T4_script.R) or [view script here](#Rcode)
 * For heatmap, check result in [`png`](https://revewill.github.io/Bioinfo.Revewill.github.io/W7/Expression%20Matrix/T4/Results/T4_results_heatmap.png) or in [`pdf`](https://revewill.github.io/Bioinfo.Revewill.github.io/W7/Expression%20Matrix/T4/Results/T4_results_heatmap.pdf) format
+![heatmap](./T4/Results/T4_results_heatmap.png)
 * Based on heatmap visualization, **transcriptomes of COAD and READ are most similar** due to their numerous co-occurrences within the same lineage
 
     <a name="Rcode"></a>
