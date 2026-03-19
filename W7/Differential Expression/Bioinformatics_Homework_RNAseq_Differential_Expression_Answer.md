@@ -4,45 +4,39 @@
 > Direct to [T1](#t1), [T2](#t2), [T3](#t3), [T4](#t4), [T5](#t5) quickly here.
 ---
 ### T1
-> Basic methods on `RNA-seq` expression normalization
+> Multiple test correction
 
-> Direct to [top](#expression-matrix) quickly here.
-#### 1. General class of normalization methods
-* **Between-sample** normalization
-  * Same gene, different samples
-  * Mainly adjusts sequencing **depth**
-* **Within-sample** normalization
-  * Same sample, different genes
-  * Mainly adjusts sequencing **length**
+> Direct to [top](#differential-expression) quickly here.
+#### 1. Multiple test correction
+* Definition
+  * A statistical **adjustment** when conducting **multiple hypothesis tests simultaneously**
+  * Addresses inflated error rates (**false positives**) due to **repeated** testing
+* Example
+  * Testing `1000` genes with a `p-value` threshold of `0.05` yields about `50` false positives *by chance*
+  * Bengamini-Hochberg (`FDR` control) is a common method for multiple test correction
+#### 2. Differences between `p-` and `q-value`
+##### 2.1 `p-value`
+* Is the **probability** of observing data **as actual results** under the assumption that **null hypothesis is true**
+* Controls **per-comparison** error rate
+  * If null is true, there's a `5%` chance of seeing this result.
+##### 2.2 `q-value`, `FDR`
+> `FDR`, False Discovery Rate
+* Is the **expected proportion of false positives** among **all** rejected hypotheses
+* Controls false discovery rate across **multiple tests**
+  * There's an expected `5%` of significant yields that are false positives.
+##### 2.3 Key differences
 
-| Method | Depth adjustment | Length adjustment | Class |
-| :---: | :---: | :---: | :---: |
-| [`CPM`](#21-cpm-counts-per-million) | √ | × | Between-sample |
-| [`RPKM`](#22-rpkm-reads-per-kilobase-per-million-mapped-reads)/[`FPKM`](#23-fpkm-fragments-per-kilobase-per-million-mapped-reads) | √ | √ | Within-sample |
-| [`TPM`](#24-tpm-transcripts-per-million) | √ | √ | Within- and between-sample | 
-| [`DESeq2 median`](#25-deseq2-median-of-ratio) | √ | × | Between-sample |
-| [`TMM`](#26-tmm-trimmed-mean-of-m-values) | √ | × | Between-sample |
-#### 2. Several basic normalization methods
-##### 2.1 `CPM`, Counts per million
-* Applies to **between-sample** analysis, sensitive to library capacity and genes with high expression
-* Formula
+| Value | Scope | Interpretation |
+| :---: | :---: | :--- |
+| `p-value` | Single test | This result has a `5%` chance to occur assuming null is true. |
+| `q-value`| Multiple test | This set of significant results contains about `5%` expected false positives. |
 
-$$
-\text{CPM} = \frac{\text{raw counts}}{\text{total mapped reads}} \times 10^6
-$$
-##### 2.2 `RPKM`, Reads per kilobase per million mapped reads
-* Applies to **single-end** sequencing data, sensitive to library capacity and genes with high expression
-* Formula
-
-$$
-\text{RPKM} = \frac{\text{raw counts}}{(\text{gene length in kb}) \times (\text{total mapped reads in millions})}
-$$
 ##### 2.3 `FPKM`, Fragments per kilobase per million mapped reads
 * Applies to **paired-end** sequencing data, sensitive to library capacity and genes with high expression
 * Formula
 
 $$
-\text{FPKM} = \frac{\text{fragments}}{(\text{gene length in kb}) \times (\text{total mapped fragments in millions})}
+q_{(i)} = \min_{k \geq i} \left( \frac{m \times p_{(k)}}{k} \right)
 $$
 ##### 2.4 `TPM`, Transcripts per million
 * Applies best to **between-sample** analysis, stable (with identical mean value between samples)
