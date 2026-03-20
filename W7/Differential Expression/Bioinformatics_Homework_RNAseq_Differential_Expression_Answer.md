@@ -35,63 +35,25 @@ $$
 | :---: | :---: | :--- |
 | `p-value` | Single test | This result has a `5%` chance to occur assuming null is true. |
 | `q-value`| Multiple test | This set of significant results contains about `5%` expected false positives. |
-
-##### 2.3 `FPKM`, Fragments per kilobase per million mapped reads
-* Applies to **paired-end** sequencing data, sensitive to library capacity and genes with high expression
-* Formula
-
-
-##### 2.4 `TPM`, Transcripts per million
-* Applies best to **between-sample** analysis, stable (with identical mean value between samples)
-* Formula
-
-$$
-\text{RPK}_i = \frac{(\text{raw counts})_i}{(\text{gene length in kb})_i}
-$$
-
-$$
-\text{TPM}_i = \frac{\text{RPK}_i}{\sum_j \text{RPK}_j} \times 10^6
-$$
-##### 2.5 `DESeq2` Median of Ratio
-* Applies to **between-sample** analysis, insensitive to genes with high expression
-* Formula
-
-$$
-s_j = \text{median}_{i} \frac{k_{ij}}{\left(\prod_{v=1}^{m} k_{iv}\right)^{1/m}}
-$$
-
-$$
-(\text{normalized counts})_{ij} = \frac{k_{ij}}{s_j}
-$$
-##### 2.6 `TMM`, Trimmed mean of M-values
-* Developed by `edgeR`, applies to **between-sample** analysis
-* Formula
-
-$$
-\log_2 \left( \hat{c}_j^{\text{TMM}} \right) = \frac{\sum_{i \in G^{\ast}} w_{ij} M_{ij}^r}{\sum_{i \in G^{\ast}} w_{ij}}
-$$
-
 ---
 ### T2
-> Multiple choice based on given picture
+> Normalization methods in [`edgeR`](#1-normalization-in-edger) and [`DESeq2`](#2-normalization-in-deseq2)
 
-> Direct to [top](#expression-matrix) quickly here.
-* **Question**
-    If the library preparation method is **Standard illumina**, the actual raw counts of the Gene G is ();
-    If the library preparation method is **Ligation method**, the actual raw counts of the Gene G is ();
-    If the library preparation method is **dUTPs method**, the actual raw counts of the Gene G is ().
-    A. 4
-    B. 6
-    C. 7
-    D. 9
-    E. 13
-* **Answer**
-  
-  | Library prep method | Answer | Explanation |
-  | :---: | :---: | :--- |
-  | **Standard illumina** | **E.** 13 | **Non-strand-specific** method, raw counts = all reads mapped onto Gene G and its complementary strand |
-  | **Ligation method** | **D.** 9 | **Strand-specfic** with **sense** reads 1 method, raw counts = reads 1 mapped onto Gene G and reads 2 mapped onto its complementary strand |
-  | **dUTPs method** | **A.** 4 | **Strand-specific** with **antisense** reads 1 method, raw counts = reads 2 mapped onto Gene G and reads 1 mapped onto its complementary strand |
+> Direct to [top](#differential-expression) quickly here.
+#### 1. Normalization in `edgeR`: `TMM`
+> `TMM`, Trimmed Mean of M-values
+
+* Basic assumption
+  * Most genes are **not differentially expressed** genes
+  * **Normalization factor** could be calculated from weighted average of expression ratios
+* Calculation method
+
+$$
+M_{g} = \log_{2} \frac{K_{gj}/D_{j}}{K_{gr}/D_{r}}
+$$
+
+#### 2. Normalization in `DESeq2`
+
 ---
 ### T3
 > Finding differentially expressed genes in *uvr8* using `DESeq2` and `edgeR`

@@ -68,12 +68,6 @@ $$
 $$
 ##### 2.6 `TMM`, Trimmed mean of M-values
 * Developed by `edgeR`, applies to **between-sample** analysis
-* Formula
-
-$$
-\log_2 \left( \hat{c}_j^{\text{TMM}} \right) = \frac{\sum_{i \in G^{\ast}} w_{ij} M_{ij}^r}{\sum_{i \in G^{\ast}} w_{ij}}
-$$
-
 ---
 ### T2
 > Multiple choice based on given picture
