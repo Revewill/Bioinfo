@@ -33,13 +33,20 @@
 * Within chromosomal sequences, here is the basic composition
   > Data collected via `bash` script.
   > View [`bash` script](./Appendix/size/annotation.sh) or [output `csv` file](./Appendix/size/annotation.csv).
+
+  ```bash
+  $ bash annotation.sh \
+  > GCF_000001405.40-RS_2025_08_annotation_report.xml > \
+  > annotation.csv
+  ```
+
   * Genes
 
     | Gene type | Count | Length in bp |
     | :---: | :---: | :---: |
-    Protein-coding genes | 19890 | 844688520
-    Non-coding RNA genes | 21872 | 928860096
-    Pseudogenes | 16950 | 719832600
+    Protein-coding genes | 19,890 | 844,688,520
+    Non-coding RNA genes | 21,872 | 928,860,096
+    Pseudogenes | 16,950 | 719,832,600
 
     * **Protein-coding genes** encode mRNAs that translate into proteins
     * **Non-coding RNA genes** encode ncRNAs that carry a variety of functions
@@ -49,14 +56,14 @@
   
     | Transcript type | Count | Total length in bp |
     | :---: | :---: | :---: |
-    | lncRNA transcripts | 30320 | 68737562 |
-    miRNA transcripts | 2875 | 62187
-    misc_RNA transcripts | 11863 | 42289816
-    rRNA transcripts | 37 | 104213
-    snRNA transcripts | 154 | 19413
-    snoRNA transcripts | 1194 | 132662
-    tRNA transcripts | 431 | 31882
-    mRNA transcripts | 131239 | 577731139
+    | lncRNA transcripts | 30,320 | 68,737,562 |
+    miRNA transcripts | 2,875 | 62,187
+    misc_RNA transcripts | 11,863 | 42,289,816
+    rRNA transcripts | 37 | 104,213
+    snRNA transcripts | 154 | 19,413
+    snoRNA transcripts | 1,194 | 132,662
+    tRNA transcripts | 431 | 31,882
+    mRNA transcripts | 131,239 | 577,731,139
 
   * Data visualized via `R`
 ![visualized](./Appendix/size/genome_annotation_stacked.png)
@@ -70,6 +77,7 @@
 #### 1. Lastest classification of ncRNAs
 * Latest annotation on ncRNA genes
   * Count: `21872`; Length: `928860096` bp, or roughly `0.93` Gb
+  * Direct to [T1.2](#2-the-basic-composition-of-human-genome) for quick heads-up
 * Classification system
   ```mermaid
   mindmap
@@ -129,6 +137,27 @@
         (TR
         T cell receptor)
   ```
+* Counts of each type/subtype
+  > Data collected via the following command.
+  > For more detailed statistics, view [output `csv` file](./Appendix/ncRNA/ncRNA_counts.csv) here.
+
+  ```bash
+  $ awk '$3 == "gene" {print $12}' \
+  > gencode.v49.basic.annotation.gtf | \
+  > cut -d'"' -f2 | sort | uniq -c | sort -rn | \
+  > grep -v "protein_coding" | awk '{print $2 "," $1}' > \
+  > ncRNA_counts.csv
+  ```
+
+  | Main type | Counts |
+  | :---: | :---: |
+  | lncRNA | 34,880 |
+  | small RNA | 4,932 |
+  | pseudogene | 13,374 |
+  | immune receptor gene | 338 |
+  * Data visualized via `R`
+
+
   * Last updated on **2025.09**
   * According to **[basic annotation report](https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_49/gencode.v49.basic.annotation.gtf.gz)** of genome assembly [**`GRCh38.p14`**](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/)
 
