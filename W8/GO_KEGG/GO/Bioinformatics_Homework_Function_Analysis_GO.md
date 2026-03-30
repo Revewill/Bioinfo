@@ -9,17 +9,17 @@
 * Acquire gene list via `R`
     * View [`R` script](./T1/GO.R)
 
-    ```R
-    table <- read.table("wt.light.vs.dark.all.txt",
-        header = TRUE, sep = "\t")
-    table <- table[!is.na(table$padj) &
-        table$log2FoldChange > 1
-        & table$padj < 0.05,]
-    gennames <- rownames(table)
-    write.table(gennames, col.names = FALSE,
-        file = "gennames.txt",
-        append = FALSE, sep = "\t", row.names = FALSE)
-    ```
+      ```R
+      table <- read.table("wt.light.vs.dark.all.txt",
+          header = TRUE, sep = "\t")
+      table <- table[!is.na(table$padj) &
+          table$log2FoldChange > 1
+          & table$padj < 0.05,]
+      gennames <- rownames(table)
+      write.table(gennames, col.names = FALSE,
+          file = "gennames.txt",
+          append = FALSE, sep = "\t", row.names = FALSE)
+      ```
     * View [gene name list](./T1/gennames.txt)
         The list was processed by the following command to remove `"`
 
