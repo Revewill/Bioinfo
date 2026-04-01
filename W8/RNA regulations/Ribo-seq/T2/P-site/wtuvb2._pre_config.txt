@@ -1,0 +1,11 @@
+
+#/home/test/rna_regulation/ribo-code/wtuvb2/wtuvb2.Aligned.toTranscriptome.out.sorted.bam
+#read_length	proportion(per total mapped reads)	predicted_psite	f0_sum	f1_sum	f2_sum	f0_percent	pvalue1	pvalue2	pvalue_combined
+# 27	22.59%	11	3746	288	1116	72.74%	0.00014623915190606628	0.00014623915190606628	1.510748439690104e-07
+# 28	38.90%	12	8569	311	191	94.47%	0.00014652626009624466	0.00014652626009624466	1.516508550767744e-07
+# 32	0.13%	15	16	1	5	72.73%	0.013892891352654344	0.0416322583317752	0.00271300857775734
+# 26	15.27%	10	2702	512	427	74.21%	0.00014652626009624466	0.00014652626009624466	1.516508550767744e-07
+# 34	0.08%	6	12	0	4	75.00%	0.02108409854857798	0.07319409408046759	0.006874656490240915
+
+# SampleName	AlignmentFile	Stranded(yes/reverse)	P-siteReadLength	P-siteLocations
+wtuvb2.Aligned.toTranscriptome.out.sorted	/home/test/rna_regulation/ribo-code/wtuvb2/wtuvb2.Aligned.toTranscriptome.out.sorted.bam	yes	26,27,28,32,34	10,11,12,15,6
