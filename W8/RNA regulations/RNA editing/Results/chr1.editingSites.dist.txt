@@ -1,0 +1,3 @@
+3'UTR	2
+intron	2
+noncoding-exon	4
