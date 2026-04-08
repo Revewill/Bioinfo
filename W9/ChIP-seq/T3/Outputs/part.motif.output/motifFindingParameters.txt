@@ -1,0 +1,1 @@
+cmd = output/part.peak sacCer2 output/part.motif.output -len 8
