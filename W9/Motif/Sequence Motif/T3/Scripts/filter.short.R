@@ -1,5 +1,5 @@
-# filter_fasta.R
-# Usage: Rscript filter_fasta.R input.fasta output.fasta min_len
+# filter.short.R
+# Usage: Rscript filter.short.R input.fasta output.fasta min_len
 
 library(Biostrings)
 
