@@ -355,6 +355,15 @@
     > sequences/five.prime.utrs.spliced.filtered.fa \
     > known-motifs/Ray2013_rbp_Homo_sapiens.meme
     ```
+* Results
+  * Motif discovery
+    * Acquired [motifs](./T3/Screenshots/motif.discovery.png)
+    ![motifs](./T3/Screenshots/motif.discovery.png)
+    * Result suggests **no significant motif found**
+  * Motif enrichment
+    * Acquired [enrichment](./T3/Screenshots/motif.enrichment.png)
+    ![enrichment](./T3/Screenshots/motif.enrichment.png)
+    * Result suggests **no significant enrichment found**
 ---
 ### T4
 > Motif finding on ChIP-seq peaks
@@ -377,4 +386,8 @@
     > chip-seq.peak.motif.discovery/meme.xml \
     > chip-seq.peak.motif.discovery/meme.html
     ```
+* Results
+  * Acquired [motifs](./T4/Screenshot/chip-seq.peak.motif.discovery.png)
+  ![motifs](./T4/Screenshot/chip-seq.peak.motif.discovery.png)
+  * The first **3** motifs are significant results
 ---
