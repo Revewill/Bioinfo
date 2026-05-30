@@ -12,3 +12,15 @@ $ conda deactivate
 ```bash
 $ pixi run python script.py
 ```
+
+#### 1.2 Install Pixi
+
+```bash
+curl -fsSL https://pixi.sh/install.sh | bash
+source ~/.bashrc
+```
+
+### 2. 
+```bash
+# 1. 克隆
+```
