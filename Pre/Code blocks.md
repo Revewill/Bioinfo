@@ -51,6 +51,21 @@ $ tail -f nohup.out
 $ ls -lh resources/tabula_sapiens/cellxgene.h5ad
 ```
 
+```python
+import scanpy as sc
+adata = sc.read_10x_h5("raw_data.h5")         # 读取数据
+sc.pp.filter_cells(adata, min_genes=200)      # 质控
+sc.pp.normalize_total(adata)                  # 归一化
+sc.pp.log1p(adata)                            # 对数变换
+sc.tl.pca(adata)                              # PCA
+sc.pp.neighbors(adata)                        # 构建图
+sc.tl.umap(adata)                             # 降维
+sc.tl.leiden(adata)                           # 聚类
+# 手动注释细胞类型
+adata.write("data.h5ad")                      # 保存
+```
+
+
 #### 3.2 Start CellWhisperer
 
 ```bash
